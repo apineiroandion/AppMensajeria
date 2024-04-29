@@ -8,6 +8,11 @@ public class Conversacion {
     private Usuario usuarioDos;
     private ArrayList<Mensaje> mensajes;
 
+    public Conversacion(Usuario usuarioUno, Usuario usuarioDosç) {
+        this.usuarioUno = usuarioUno;
+        this.usuarioDos = usuarioDos;
+    }
+
     public Conversacion(Usuario usuarioUno, Usuario usuarioDos, ArrayList<Mensaje> mensajes) {
         this.usuarioUno = usuarioUno;
         this.usuarioDos = usuarioDos;
