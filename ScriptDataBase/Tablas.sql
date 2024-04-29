@@ -22,7 +22,7 @@ create table conversacion
 
 create table mensaje
 (
-    idm primary key,
+    idm serial primary key,
     idc int,
     idu int,
     content varchar(150);
