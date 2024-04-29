@@ -25,6 +25,7 @@ create table mensaje
     idm serial primary key,
     idc int,
     idu int,
+    content varchar(150);
     foreign key (idc) references conversacion (idc),
     foreign key (idu) references usuario (idu)
 );
