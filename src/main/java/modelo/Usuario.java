@@ -2,53 +2,54 @@ package modelo;
 
 import java.util.ArrayList;
 
+/**
+ * Esta calse representa un usuario de la aplicaccion.
+ * Contiene la informacion basica del usuario
+ */
 public class Usuario {
+    /**
+     * id de usuario
+     */
     private Integer idu;
+    /**
+     * nombre unico de usuario
+     */
     private String userName;
+    /**
+     * nombre real usuario
+     */
     private String firstName;
+    /**
+     * apellido usuario
+     */
     private String surname;
+    /**
+     * contraseña del usuario
+     */
     private String password;
+    /**
+     * Lista de conversaciones
+     */
     private ArrayList<Conversacion> conversaciones;
 
+    /**
+     * Constructor para crear un objeto del tipo usuario
+     * @param idu
+     * @param userName
+     * @param firstName
+     * @param surname
+     * @param password
+     */
     public Usuario(Integer idu, String userName, String firstName, String surname, String password) {
         this.idu = idu;
         this.userName = userName;
         this.firstName = firstName;
         this.surname = surname;
         this.password = password;
+        this.conversaciones = new ArrayList<>();
     }
 
-    /**
-     * Crea una nueva conversacion del usuario que llama al metodo con el usuario seleccionado
-     * @param usuarioDos
-     * @return conversacion nueva con usuario seleccionado
-     */
-    public Conversacion newConversacion(Usuario usuarioDos) {
-        Conversacion conversacion = new Conversacion(this, usuarioDos);
-        return conversacion;
-    }
-
-    /**
-     * Añade la conversacion a los array list de los dos usuarios, recomemçndable usara como parametro el
-     * metodo newConversacion
-     * @param conversacion
-     */
-    public void addConversacion(Conversacion conversacion) {
-        //añado la conversacion seleccionada al array list de conversaciones de este usuario
-        this.conversaciones.add(conversacion);
-        //añado la conversacion al arry list del ususario dos
-        conversacion.getUsuarioDos().conversaciones.add(conversacion);
-    }
-
-    /**
-     * Añade un mensaje a la conversacion seleccionada
-     * @param conversacion
-     * @param textoMensaje
-     */
-    public void newMensaje(Conversacion conversacion, String textoMensaje) {
-        Mensaje mensaje = new Mensaje(conversacion.getIdc(), this.idu, textoMensaje);
-        conversacion.getMensajes().add(mensaje);
-    }
+    //Metodos de acceso
 
     public Integer getIdu() {
         return idu;
@@ -88,5 +89,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Conversacion> getConversaciones() {
+        return conversaciones;
+    }
+
+    public void setConversaciones(ArrayList<Conversacion> conversaciones) {
+        this.conversaciones = conversaciones;
     }
 }
