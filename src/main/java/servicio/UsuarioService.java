@@ -4,6 +4,11 @@ import modelo.Conversacion;
 import modelo.Mensaje;
 import modelo.Usuario;
 
+/**
+ * Esta clase proporciona servicios relacionados con la gestión de usuarios en el sistema.
+ * Permite crear, actualizar y eliminar usuarios, así como realizar otras operaciones
+ * relacionadas con los usuarios.
+ */
 public class UsuarioService {
 
     /**
