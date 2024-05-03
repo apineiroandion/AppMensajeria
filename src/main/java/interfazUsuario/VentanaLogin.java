@@ -1,5 +1,6 @@
 package interfazUsuario;
 
+import interfazUsuario.resources.Boton;
 import interfazUsuario.resources.CuadroDeTexto;
 import interfazUsuario.resources.Etiqueta;
 
@@ -56,21 +57,23 @@ public class VentanaLogin extends JFrame {
         JTextField usernametxt = new CuadroDeTexto(10, 10);
         usernametxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         usernametxt.setBounds(75, 100, 350, 40);
+        this.add(usernametxt);
 
         JTextField pwtxt = new CuadroDeTexto(10, 10);
         pwtxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         pwtxt.setBounds(75, 200, 350, 40);
+        this.add(pwtxt);
 
         JLabel usernamelbl = new Etiqueta("Usuario");
         usernamelbl.setBounds(75, 65, 100, 40);
+        this.add(usernamelbl);
 
         JLabel pwlbl = new Etiqueta("Contraseña");
         pwlbl.setBounds(75, 165, 500, 40);
-
-        this.add(usernametxt);
-        this.add(pwtxt);
-        this.add(usernamelbl);
         this.add(pwlbl);
 
+        JButton loginbtn = new Boton("Iniciar Sesión");
+        loginbtn.setBounds(325, 250, 100, 40);
+        this.add(loginbtn);
     }
 }
