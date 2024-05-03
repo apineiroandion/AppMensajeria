@@ -10,18 +10,29 @@ public class VentanaLogin extends JFrame {
     //TODO: Añadir cuadros de texto y botones en la ventana
     public VentanaLogin() {
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(10, 2));
+        // Mostrar todos los componentes de la ventana
+        createAndShowGUI();
 
-        JTextField login = new CuadroDeTexto(10, 10);
-        panel.add(login);
-
-        setSize(400, 400);
+        setSize(500, 400);
+        setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setTitle("Iniciar Sesión");
-        add(panel);
-        //getContentPane().setBackground(new java.awt.Color(30, 30, 30));
+        getContentPane().setBackground(new java.awt.Color(50, 50, 50));
         setVisible(true);
     }
 
+    private void createAndShowGUI() {
+        JTextField usernametxt = new CuadroDeTexto(10, 10);
+        usernametxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        usernametxt.setBounds(75, 100, 350, 40);
+
+        JTextField pwtxt = new CuadroDeTexto(10, 10);
+        pwtxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        pwtxt.setBounds(75, 200, 350, 40);
+
+        this.add(usernametxt);
+        this.add(pwtxt);
+
+    }
 }
