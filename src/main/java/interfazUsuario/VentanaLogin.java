@@ -6,10 +6,7 @@ import interfazUsuario.resources.Etiqueta;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class VentanaLogin extends JFrame {
     private CuadroDeTexto cuadroDeTexto;
@@ -77,6 +74,12 @@ public class VentanaLogin extends JFrame {
         JButton loginbtn = new Boton("Iniciar Sesión");
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
+
+        JLabel register = new Etiqueta("Registrarse");
+        register.setBounds(75, 250, 100, 40);
+        register.setFont(new java.awt.Font("Arial", 0, 15));
+        register.setForeground(new java.awt.Color(54, 54, 255));
+        this.add(register);
 
         JButton closebtn = new Boton("X");
         closebtn.setBounds(465,0,35,35);
