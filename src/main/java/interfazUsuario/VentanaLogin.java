@@ -7,6 +7,7 @@ import interfazUsuario.resources.Etiqueta;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URI;
 
 public class VentanaLogin extends JFrame {
     private CuadroDeTexto cuadroDeTexto;
@@ -79,6 +80,16 @@ public class VentanaLogin extends JFrame {
         register.setBounds(75, 250, 100, 40);
         register.setFont(new java.awt.Font("Arial", 0, 15));
         register.setForeground(new java.awt.Color(54, 54, 255));
+        register.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("http://google.com"));
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
         this.add(register);
 
         JButton closebtn = new Boton("X");
@@ -92,6 +103,12 @@ public class VentanaLogin extends JFrame {
             @Override
             public void mouseExited(MouseEvent e) {
                 closebtn.setBackground(new java.awt.Color(40, 40, 40));
+            }
+        });
+        closebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
         this.add(closebtn);
