@@ -67,11 +67,11 @@ public class VentanaLogin extends JFrame {
         pwtxt.setBounds(75, 200, 350, 40);
         this.add(pwtxt);
         // JLabel usuario
-        JLabel usernamelbl = new Etiqueta("Usuario");
+        JLabel usernamelbl = new Etiqueta("Usuario",20);
         usernamelbl.setBounds(75, 65, 100, 40);
         this.add(usernamelbl);
         // JLabel contraseña
-        JLabel pwlbl = new Etiqueta("Contraseña");
+        JLabel pwlbl = new Etiqueta("Contraseña",20);
         pwlbl.setBounds(75, 165, 500, 40);
         this.add(pwlbl);
         // JButton iniciar sesion
@@ -79,20 +79,9 @@ public class VentanaLogin extends JFrame {
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
         // JLabel registro
-        JLabel register = new Etiqueta("Registrarse");
+        JLabel register = new Etiqueta("Registrarse",15, "http://google.com");
         register.setBounds(75, 250, 100, 40);
-        register.setFont(new java.awt.Font("Arial", Font.PLAIN, 15));
         register.setForeground(new java.awt.Color(54, 54, 255));
-        register.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI("http://google.com"));
-                } catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-        });
         this.add(register);
         // JButton terminar proceso
         JButton closebtn = new Boton("X");
