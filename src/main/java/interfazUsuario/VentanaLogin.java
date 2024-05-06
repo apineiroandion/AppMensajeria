@@ -12,7 +12,6 @@ import java.net.URI;
 public class VentanaLogin extends JFrame {
     private CuadroDeTexto cuadroDeTexto;
     private Point initialClick;
-    //TODO: Añadir cuadros de texto y botones en la ventana
     public VentanaLogin() {
 
         // Mostrar todos los componentes de la ventana
@@ -54,13 +53,11 @@ public class VentanaLogin extends JFrame {
     }
 
     private void createAndShowGUI() {
-        JTextField usernametxt = new CuadroDeTexto(10, 10);
-        usernametxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        JTextField usernametxt = new CuadroDeTexto(10, 10, Color.black);
         usernametxt.setBounds(75, 100, 350, 40);
         this.add(usernametxt);
 
-        JTextField pwtxt = new CuadroDeTexto(10, 10);
-        pwtxt.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        JTextField pwtxt = new CuadroDeTexto(10, 10, Color.black);
         pwtxt.setBounds(75, 200, 350, 40);
         this.add(pwtxt);
 
