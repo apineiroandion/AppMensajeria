@@ -9,8 +9,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URI;
 
+/**
+ * Frame ventana Login
+ */
 public class VentanaLogin extends JFrame {
-    private CuadroDeTexto cuadroDeTexto;
     private Point initialClick;
     public VentanaLogin() {
 
@@ -52,30 +54,34 @@ public class VentanaLogin extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Iniciar todos los componentes del JFrame
+     */
     private void createAndShowGUI() {
+        // JTextField nombre usuario
         JTextField usernametxt = new CuadroDeTexto(10, 10, Color.black);
         usernametxt.setBounds(75, 100, 350, 40);
         this.add(usernametxt);
-
+        // JTextField contraseña
         JTextField pwtxt = new CuadroDeTexto(10, 10, Color.black);
         pwtxt.setBounds(75, 200, 350, 40);
         this.add(pwtxt);
-
+        // JLabel usuario
         JLabel usernamelbl = new Etiqueta("Usuario");
         usernamelbl.setBounds(75, 65, 100, 40);
         this.add(usernamelbl);
-
+        // JLabel contraseña
         JLabel pwlbl = new Etiqueta("Contraseña");
         pwlbl.setBounds(75, 165, 500, 40);
         this.add(pwlbl);
-
+        // JButton iniciar sesion
         JButton loginbtn = new Boton("Iniciar Sesión");
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
-
+        // JLabel registro
         JLabel register = new Etiqueta("Registrarse");
         register.setBounds(75, 250, 100, 40);
-        register.setFont(new java.awt.Font("Arial", 0, 15));
+        register.setFont(new java.awt.Font("Arial", Font.PLAIN, 15));
         register.setForeground(new java.awt.Color(54, 54, 255));
         register.addMouseListener(new MouseAdapter() {
             @Override
@@ -88,7 +94,7 @@ public class VentanaLogin extends JFrame {
             }
         });
         this.add(register);
-
+        // JButton terminar proceso
         JButton closebtn = new Boton("X");
         closebtn.setBounds(465,0,35,35);
         closebtn.addMouseListener(new MouseAdapter() {
