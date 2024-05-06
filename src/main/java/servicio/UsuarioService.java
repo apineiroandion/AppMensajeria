@@ -13,6 +13,7 @@ public class UsuarioService {
 
     /**
      * Crea una nueva conversacion entre dos usuarios
+     * @param usuarioUno
      * @param usuarioDos
      * @return conversacion nueva con usuario seleccionado
      */
@@ -34,12 +35,21 @@ public class UsuarioService {
     }
 
     /**
-     * Añade un mensaje a la conversacion seleccionada
+     * Crea un nuevo mensaje
      * @param conversacion
      * @param textoMensaje
+     * @return el mensaje nuevo
      */
-    public void newMensaje(Usuario usuario, Conversacion conversacion, String textoMensaje) {
-        Mensaje mensaje = new Mensaje(conversacion.getIdc(), usuario.getIdu(), textoMensaje);
+    public Mensaje newMensaje(Usuario usuario, Conversacion conversacion, String textoMensaje) {
+        return new Mensaje(conversacion.getIdc(), usuario.getIdu(), textoMensaje);
+    }
+
+    /**
+     * Añade un mensaje a la conversacion seleccionada
+     * @param conversacion
+     * @param mensaje
+     */
+    public void addMensaje(Conversacion conversacion, Mensaje mensaje) {
         conversacion.getMensajes().add(mensaje);
     }
 }
