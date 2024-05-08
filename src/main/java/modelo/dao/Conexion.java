@@ -55,7 +55,7 @@ public class Conexion {
                 int id = rs.getInt("idu");
                 String nombre = rs.getString("userName");
                 // Hacer algo con los datos...
-                System.out.println("ID: " + id + ", Nombre: " + nombre);
+                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Apellido: " + rs.getString("surname"));
             }
             // Cerrar ResultSet, Statement y conexión
             rs.close();
