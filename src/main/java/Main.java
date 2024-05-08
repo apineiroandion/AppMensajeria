@@ -1,8 +1,8 @@
-import dao.Connection;
+import modelo.dao.Conexion;
 
 public class Main {
     public static void main(String[] args) {
-        //Connection.getInstance();
-        //Connection.conexionInit();
+        Conexion.getInstance();
+        Conexion.conexionInit();
     }
 }
