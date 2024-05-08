@@ -1,16 +1,17 @@
-package dao;
+package modelo.dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  * ESta calse realiza la conexion con la base de datos
  */
-public class Connection {
+public class Conexion {
     /**
      * url de la base de datos externa
      */
-    private String url = "jdbc:postgresql://140.238.65.12:80/bason";
+    private String url = "jdbc:postgresql://140.238.65.12:5432/bason";
     /**
      * nombre de usuario de la base de datos
      */
@@ -18,39 +19,39 @@ public class Connection {
     /**
      * contraseña del usuario de la base de datos
      */
-    private String password = "postgres";
+    private String password = "contraseñasegura";
     /**
      * instancia de la clase Coneccion
      */
-    private static Connection connection;
+    private static Conexion conexion;
 
     /**
      * COnstructor privado
      */
-    private Connection() {
+    private Conexion() {
     }
 
     /**
      * getInstance
      * @return Clase con las funciones de conexion con la BD
      */
-    public static Connection getInstance() {
-        if (connection == null) {
-            connection = new Connection();
+    public static Conexion getInstance() {
+        if (conexion == null) {
+            conexion = new Conexion();
         }
-        return connection;
+        return conexion;
     }
 
     /**
      * Clase que inicia y cierra la conexion con la base de datos
      */
-    public static void conexionInit(){
-        try{
-            Connection con = (Connection) DriverManager.getConnection(connection.url, connection.user, connection.password);
-            System.out.println("Conectao");
+    public static void conexionInit() {
+        try {
+            Connection con = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword());
+            System.out.println("Conectado");
             //Introducir consultas
-            DriverManager.getConnection(connection.url).close();
-        }catch(SQLException e){
+            con.close(); // Cierra la conexión
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -81,11 +82,11 @@ public class Connection {
         this.password = password;
     }
 
-    public static Connection getConnection() {
-        return connection;
+    public static Conexion getConnection() {
+        return conexion;
     }
 
-    public static void setConnection(Connection connection) {
-        Connection.connection = connection;
+    public static void setConnection(Conexion conexion) {
+        Conexion.conexion = conexion;
     }
 }
