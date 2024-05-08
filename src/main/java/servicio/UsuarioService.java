@@ -10,7 +10,7 @@ import modelo.Usuario;
  * relacionadas con los usuarios.
  */
 public class UsuarioService {
-
+    //TODO : Meter Treads en controller
     /**
      * Crea una nueva conversacion entre dos usuarios
      * @param usuarioUno
