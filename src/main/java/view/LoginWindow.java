@@ -58,12 +58,12 @@ public class LoginWindow extends JFrame {
      */
     private void createAndShowGUI() {
         // JTextField nombre usuario
-        JTextField usernametxt = new GenericTextField(10, 10, Color.black);
-        usernametxt.setBounds(75, 100, 350, 40);
+        JTextField usernametxt = new GenericTextField(350, 40, Color.black);
+        usernametxt.setLocation(75,100);
         this.add(usernametxt);
         // JTextField contraseña
-        JTextField pwtxt = new GenericTextField(10, 10, Color.black);
-        pwtxt.setBounds(75, 200, 350, 40);
+        JTextField pwtxt = new GenericTextField(350, 40, Color.black);
+        pwtxt.setLocation(75,200);
         this.add(pwtxt);
         // JLabel usuario
         JLabel usernamelbl = new Etiqueta("Usuario",20);
