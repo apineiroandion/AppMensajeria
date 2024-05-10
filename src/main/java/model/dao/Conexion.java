@@ -1,4 +1,4 @@
-package modelo.dao;
+package model.dao;
 
 import java.sql.*;
 
@@ -23,9 +23,11 @@ public class Conexion {
      */
     private static Conexion conexion;
 
+
     /**
      * COnstructor privado
      */
+
     private Conexion() {
     }
 
@@ -48,7 +50,7 @@ public class Conexion {
             Connection con = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword());
             System.out.println("Conectado");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(consulta.setQuery());
+            ResultSet rs = stmt.executeQuery(consulta.getQuery(Consulta.GET_ALL_USERS));
             // Procesar los resultados de la consulta
             while (rs.next()) {
                 // Accede a los datos de cada fila
@@ -67,33 +69,7 @@ public class Conexion {
         System.out.println("Fin metodo");
     }
     //TODO : Actualizar metodo para que inserte cosas
-    public static void insertar() {
-        try {
-        Connection con = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword());
-        System.out.println("Conectado");
-        String insert = "insert into usuario (userName, firstName, surname, password) VALUES (?, ?, ?, ?)";
 
-        PreparedStatement pstmt = con.prepareStatement(insert);
-        pstmt.setString(1, "userName");
-        pstmt.setString(2, "firstName");
-        pstmt.setString(3, "surname");
-        pstmt.setString(4, "password");
-
-            // Ejecutar la consulta de inserción
-            int filasAfectadas = pstmt.executeUpdate();
-
-            if (filasAfectadas > 0) {
-                System.out.println("Inserción exitosa");
-            } else {
-                System.out.println("La inserción no tuvo éxito");
-            }
-            pstmt.close();
-            con.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     // Getters y Setters
 

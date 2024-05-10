@@ -1,8 +1,8 @@
-package servicio;
+package controller;
 
-import modelo.Conversacion;
-import modelo.Mensaje;
-import modelo.Usuario;
+import model.Conversacion;
+import model.Mensaje;
+import model.Usuario;
 
 /**
  * Esta clase proporciona servicios relacionados con la gestión de usuarios en el sistema.
@@ -11,6 +11,18 @@ import modelo.Usuario;
  */
 public class UsuarioService {
     //TODO : Meter Treads en controller
+
+    /**
+     * Metodo que crea un nuevo ususario
+     * @param userName
+     * @param firstName
+     * @param surName
+     * @param password
+     * @return el usuario creado
+     */
+    public Usuario nuevoUsuario(String userName, String firstName, String surName, String password){
+        return new Usuario(userName, firstName, surName, password);
+    }
     /**
      * Crea una nueva conversacion entre dos usuarios
      * @param usuarioUno

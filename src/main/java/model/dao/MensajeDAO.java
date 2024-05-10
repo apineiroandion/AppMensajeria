@@ -1,4 +1,4 @@
-package modelo.dao;
+package model.dao;
 
 public class MensajeDAO {
 }

@@ -1,4 +1,4 @@
-package servicio;
+package controller;
 
 public class ConversacionService {
 }

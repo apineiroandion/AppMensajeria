@@ -1,4 +1,4 @@
-package modelo;
+package model;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Usuario {
     /**
      * apellido usuario
      */
-    private String surname;
+    private String surName;
     /**
      * contraseña del usuario
      */
@@ -34,21 +34,28 @@ public class Usuario {
 
     /**
      * Constructor para crear un objeto del tipo usuario
-     * @param idu
+     *
      * @param userName
      * @param firstName
-     * @param surname
+     * @param surName
      * @param password
      */
-    public Usuario(Integer idu, String userName, String firstName, String surname, String password) {
+    public Usuario(String userName, String firstName, String surName, String password) {
         this.idu = idu;
         this.userName = userName;
         this.firstName = firstName;
-        this.surname = surname;
+        this.surName = surName;
         this.password = password;
         this.conversaciones = new ArrayList<>();
     }
 
+    public Usuario(String userName, String firstName, String surName, String password, ArrayList<Conversacion> conversaciones) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.surName = surName;
+        this.password = password;
+        this.conversaciones = conversaciones;
+    }
     //Metodos de acceso
 
     public Integer getIdu() {
@@ -75,12 +82,12 @@ public class Usuario {
         this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getPassword() {
