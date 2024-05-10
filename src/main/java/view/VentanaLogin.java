@@ -1,13 +1,12 @@
-package interfazUsuario;
+package view;
 
-import interfazUsuario.resources.Boton;
-import interfazUsuario.resources.CuadroDeTexto;
-import interfazUsuario.resources.Etiqueta;
+import view.resources.Boton;
+import view.resources.CuadroDeTexto;
+import view.resources.Etiqueta;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URI;
 
 /**
  * Frame ventana Login

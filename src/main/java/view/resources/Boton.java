@@ -1,4 +1,4 @@
-package interfazUsuario.resources;
+package view.resources;
 
 import javax.swing.*;
 import java.awt.*;

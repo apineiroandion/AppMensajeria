@@ -1,6 +1,6 @@
-package interfazUsuario.resources;
+package view.resources;
 
-import interfazUsuario.resources.eventos.EventoColor;
+import view.resources.eventos.EventoColor;
 
 import javax.swing.*;
 import java.awt.*;

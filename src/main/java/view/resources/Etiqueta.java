@@ -1,6 +1,6 @@
-package interfazUsuario.resources;
+package view.resources;
 
-import interfazUsuario.resources.eventos.EventoEnlace;
+import view.resources.eventos.EventoEnlace;
 
 import javax.swing.*;
 import java.awt.*;

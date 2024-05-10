@@ -1,4 +1,4 @@
-package interfazUsuario.resources.eventos;
+package view.resources.eventos;
 
 import javax.swing.*;
 import java.awt.*;
