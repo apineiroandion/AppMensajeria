@@ -2,21 +2,26 @@ package model.dao;
 
 import model.Usuario;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
-
+/**
+ * CRUD de Usuarios
+ */
 public class UsuarioDAO implements Consulta{
-    //TODO: Cambiar a aprametro String, y hacer static final con los strings
-
-
+    /**
+     * Metodod que aporta la quey que solicitas
+     * @param query
+     * @return string con la consulta
+     */
     @Override
     public String getQuery(String query) {
         return query;
     }
 
+    /**
+     * Metodo que inserta un usuario en la base de datos
+     * @param usuario
+     */
     public static void insertar(Usuario usuario) {
         try {
             Connection con = DriverManager.getConnection(Conexion.getConnection().getUrl(),
@@ -39,6 +44,12 @@ public class UsuarioDAO implements Consulta{
         }
 
     }
+
+    /**
+     * Metodo que comprueba que la insecion se hizo correctamente
+     * @param filasAfectadas
+     * @return bolleano de comrpobacion
+     */
     public static boolean comprobarInsercion(int filasAfectadas){
         String[] textoComprobarInsercion = {"Inserción exitosa", "La inserción no tuvo éxito"};
         if (filasAfectadas > 0) {
@@ -49,6 +60,31 @@ public class UsuarioDAO implements Consulta{
             return false;
         }
 
+    }
+
+    public static void consultar(String query) {
+        try {
+            Connection con = DriverManager.getConnection(Conexion.getConnection().getUrl(),
+                    Conexion.getConnection().getUser(), Conexion.getConnection().getPassword());
+            System.out.println("Conectado");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            // Procesar los resultados de la consulta
+            while (rs.next()) {
+                // Accede a los datos de cada fila
+                int id = rs.getInt("idu");
+                String nombre = rs.getString("userName");
+                // Hacer algo con los datos...
+                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Apellido: " + rs.getString("surname"));
+            }
+            // Cerrar ResultSet, Statement y conexión
+            rs.close();
+            stmt.close();
+            con.close(); // Cierra la conexión
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Fin metodo");
     }
 
 }

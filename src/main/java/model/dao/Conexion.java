@@ -23,7 +23,6 @@ public class Conexion {
      */
     private static Conexion conexion;
 
-
     /**
      * COnstructor privado
      */
@@ -41,35 +40,6 @@ public class Conexion {
         }
         return conexion;
     }
-
-    /**
-     * Clase que inicia y cierra la conexion con la base de datos
-     */
-    public static void conexionInit(Consulta consulta) {
-        try {
-            Connection con = DriverManager.getConnection(conexion.getUrl(), conexion.getUser(), conexion.getPassword());
-            System.out.println("Conectado");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(consulta.getQuery(Consulta.GET_ALL_USERS));
-            // Procesar los resultados de la consulta
-            while (rs.next()) {
-                // Accede a los datos de cada fila
-                int id = rs.getInt("idu");
-                String nombre = rs.getString("userName");
-                // Hacer algo con los datos...
-                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Apellido: " + rs.getString("surname"));
-            }
-            // Cerrar ResultSet, Statement y conexión
-            rs.close();
-            stmt.close();
-            con.close(); // Cierra la conexión
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Fin metodo");
-    }
-    //TODO : Actualizar metodo para que inserte cosas
-
 
     // Getters y Setters
 
