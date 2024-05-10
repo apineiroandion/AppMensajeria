@@ -3,14 +3,13 @@ package view;
 import view.panels.BottomLeftPanel;
 import view.panels.RightChatPanel;
 import view.panels.LeftPanel;
-import view.resources.CuadroDeTexto;
 import view.resources.Etiqueta;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class VentanaMain extends JFrame {
-    public VentanaMain() {
+public class MainWindow extends JFrame {
+    public MainWindow() {
         setSize(800, 600);
         setTitle("Chats");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

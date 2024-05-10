@@ -1,4 +1,4 @@
-package view.resources.eventos;
+package view.resources.events;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.event.FocusEvent;
 /**
  * Esta clase cambia el color de borde del JTextField cuando se selecciona y se deselecciona
  */
-public class EventoColor extends FocusAdapter {
+public class EventColor extends FocusAdapter {
     JTextField cuadroDeTexto;
     Color colorBase;
     Color colorHover;
@@ -19,7 +19,7 @@ public class EventoColor extends FocusAdapter {
      * @param colorBase Color borde no seleccionado
      * @param colorHover Color borde seleccionado
      */
-    public EventoColor(JTextField cuadroDeTexto, Color colorBase, Color colorHover) {
+    public EventColor(JTextField cuadroDeTexto, Color colorBase, Color colorHover) {
         this.cuadroDeTexto = cuadroDeTexto;
         this.colorBase = colorBase;
         this.colorHover = colorHover;

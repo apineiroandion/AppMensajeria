@@ -1,6 +1,6 @@
 package view.resources;
 
-import view.resources.eventos.EventoEnlace;
+import view.resources.events.EventLink;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +27,6 @@ public class Etiqueta extends JLabel {
         super(texto);
         setFont(new java.awt.Font("Arial", Font.PLAIN, tamanoFuente));
         setForeground(new java.awt.Color(255, 255, 255));
-        addMouseListener(new EventoEnlace(this,url));
+        addMouseListener(new EventLink(this,url));
     }
 }
