@@ -3,7 +3,7 @@ package view;
 import view.panels.BottomLeftPanel;
 import view.panels.RightChatPanel;
 import view.panels.LeftPanel;
-import view.resources.Etiqueta;
+import view.resources.Label;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public class MainWindow extends JFrame {
         JPanel bottomLeftPanel = new BottomLeftPanel();
         leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
 
-        JLabel userNamelbl = new Etiqueta("UserName",15);
+        JLabel userNamelbl = new Label("UserName",15);
         bottomLeftPanel.add(userNamelbl);
 
         /**

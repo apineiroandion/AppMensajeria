@@ -2,7 +2,7 @@ package view;
 
 import view.resources.Button;
 import view.resources.GenericTextField;
-import view.resources.Etiqueta;
+import view.resources.Label;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,11 +66,11 @@ public class LoginWindow extends JFrame {
         pwtxt.setLocation(75,200);
         this.add(pwtxt);
         // JLabel usuario
-        JLabel usernamelbl = new Etiqueta("Usuario",20);
+        JLabel usernamelbl = new Label("Usuario",20);
         usernamelbl.setBounds(75, 65, 100, 40);
         this.add(usernamelbl);
         // JLabel contraseña
-        JLabel pwlbl = new Etiqueta("Contraseña",20);
+        JLabel pwlbl = new Label("Contraseña",20);
         pwlbl.setBounds(75, 165, 500, 40);
         this.add(pwlbl);
         // JButton iniciar sesion
@@ -78,7 +78,7 @@ public class LoginWindow extends JFrame {
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
         // JLabel registro
-        JLabel register = new Etiqueta("Registrarse",15, "http://google.com");
+        JLabel register = new Label("Registrarse",15, "http://google.com");
         register.setBounds(75, 250, 100, 40);
         register.setForeground(new java.awt.Color(54, 54, 255));
         this.add(register);
