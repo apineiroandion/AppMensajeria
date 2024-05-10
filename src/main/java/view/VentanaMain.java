@@ -1,12 +1,15 @@
 package view;
 
+import view.panels.BottomLeftPanel;
+import view.panels.RightChatPanel;
+import view.panels.LeftPanel;
+import view.resources.CuadroDeTexto;
 import view.resources.Etiqueta;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaMain extends JFrame {
-    final int LEFT_PANEL_WIDTH = 250;
     public VentanaMain() {
         setSize(800, 600);
         setTitle("Chats");
@@ -22,22 +25,22 @@ public class VentanaMain extends JFrame {
         /**
          * leftPanel BorderLayout
          */
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BorderLayout());
-        leftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, 600));
-        leftPanel.setBackground(new Color(50, 50, 50));
+        JPanel leftPanel = new LeftPanel();
         this.add(leftPanel, BorderLayout.WEST);
 
         /**
          * bottomLeftPanel GridBagLayout
          */
-        JPanel bottomLeftPanel = new JPanel();
-        bottomLeftPanel.setLayout(new GridBagLayout());
-        bottomLeftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH,100));
-        bottomLeftPanel.setBackground(new Color(40,40,40));
+        JPanel bottomLeftPanel = new BottomLeftPanel();
         leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
 
         JLabel userNamelbl = new Etiqueta("UserName",15);
         bottomLeftPanel.add(userNamelbl);
+
+        /**
+         * rightChatPanel BorderLayout
+         */
+        JPanel rightChatPanel = new RightChatPanel();
+        add(rightChatPanel, BorderLayout.CENTER);
     }
 }
