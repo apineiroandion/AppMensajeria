@@ -1,6 +1,6 @@
 package view;
 
-import view.resources.Button;
+import view.resources.GenericButton;
 import view.resources.GenericTextField;
 import view.resources.Label;
 
@@ -74,7 +74,7 @@ public class LoginWindow extends JFrame {
         pwlbl.setBounds(75, 165, 500, 40);
         this.add(pwlbl);
         // JButton iniciar sesion
-        JButton loginbtn = new Button("Iniciar Sesión");
+        JButton loginbtn = new GenericButton("Iniciar Sesión");
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
         // JLabel registro
@@ -82,7 +82,7 @@ public class LoginWindow extends JFrame {
         register.setBounds(75, 250, 100, 40);
         this.add(register);
         // JButton terminar proceso
-        JButton closebtn = new Button("X");
+        JButton closebtn = new GenericButton("X");
         closebtn.setBounds(465,0,35,35);
         closebtn.addMouseListener(new MouseAdapter() {
             @Override

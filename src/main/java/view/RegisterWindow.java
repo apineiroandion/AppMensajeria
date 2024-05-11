@@ -1,5 +1,6 @@
 package view;
 
+import view.resources.GenericButton;
 import view.resources.Label;
 import view.resources.GenericTextField;
 
@@ -23,6 +24,12 @@ public class RegisterWindow extends JFrame {
     }
 
     private void createAndShowGUI() {
+
+        // JLabel titulo
+        JLabel title = new Label("Registro", 40);
+        title.setBounds(100, 20, 250, 50);
+        add(title);
+
         // JTextField nombre usuario
         JTextField userName = new GenericTextField(250, 40, Color.BLACK);
         userName.setLocation(50, 100);
@@ -58,6 +65,11 @@ public class RegisterWindow extends JFrame {
         JLabel passwordlbl = new Label("Contraseña",15);
         passwordlbl.setBounds(50,295,100,40);
         add(passwordlbl);
+
+        // JButton registrarse
+        JButton registerbtn = new GenericButton("Registrarse");
+        registerbtn.setBounds(75, 400, 200, 60);
+        add(registerbtn);
 
 
     }

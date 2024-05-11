@@ -3,8 +3,8 @@ package view.resources;
 import javax.swing.*;
 import java.awt.*;
 
-public class Button extends JButton {
-    public Button(String texto) {
+public class GenericButton extends JButton {
+    public GenericButton(String texto) {
         super(texto);
         setFont(new java.awt.Font("Arial", 0, 15));
         setForeground(new java.awt.Color(255, 255, 255));
