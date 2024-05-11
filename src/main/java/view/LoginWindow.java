@@ -80,7 +80,6 @@ public class LoginWindow extends JFrame {
         // JLabel registro
         JLabel register = new Label("Registrarse",15, "http://google.com");
         register.setBounds(75, 250, 100, 40);
-        register.setForeground(new java.awt.Color(54, 54, 255));
         this.add(register);
         // JButton terminar proceso
         JButton closebtn = new Button("X");
