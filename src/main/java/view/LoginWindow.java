@@ -1,6 +1,7 @@
 package view;
 
 import view.resources.GenericButton;
+import view.resources.GenericPasswordFIeld;
 import view.resources.GenericTextField;
 import view.resources.Label;
 
@@ -62,7 +63,7 @@ public class LoginWindow extends JFrame {
         usernametxt.setLocation(75,100);
         this.add(usernametxt);
         // JTextField contraseña
-        JTextField pwtxt = new GenericTextField(350, 40, Color.black);
+        JTextField pwtxt = new GenericPasswordFIeld(350, 40, Color.black);
         pwtxt.setLocation(75,200);
         this.add(pwtxt);
         // JLabel usuario

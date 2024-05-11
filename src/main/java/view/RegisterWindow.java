@@ -1,6 +1,7 @@
 package view;
 
 import view.resources.GenericButton;
+import view.resources.GenericPasswordFIeld;
 import view.resources.Label;
 import view.resources.GenericTextField;
 
@@ -58,7 +59,7 @@ public class RegisterWindow extends JFrame {
         add(surNamelbl);
 
         // JTextField contraseña
-        JTextField password = new GenericTextField(250,40, Color.BLACK);
+        JTextField password = new GenericPasswordFIeld(250,40, Color.BLACK);
         password.setLocation(50,325);
         add(password);
         // JLabel contraseña
