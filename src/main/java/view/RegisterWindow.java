@@ -27,22 +27,37 @@ public class RegisterWindow extends JFrame {
         JTextField userName = new GenericTextField(250, 40, Color.BLACK);
         userName.setLocation(50, 100);
         add(userName);
-
-        JLabel userNamelbl = new Label("Usuario",20);
-        userNamelbl.setLocation(50,80);
+        // Jlabel nombre usuario
+        JLabel userNamelbl = new Label("Usuario",15);
+        userNamelbl.setBounds(50,70,100,40);
         add(userNamelbl);
+
         // JTextField nombre
         JTextField firstName = new GenericTextField(250, 40, Color.BLACK);
         firstName.setLocation(50,175);
         add(firstName);
+        // JLabel nombre
+        JLabel firstNamelbl = new Label("Nombre",15);
+        firstNamelbl.setBounds(50,145,100,40);
+        add(firstNamelbl);
+
         // JTextField apellido
         JTextField surName = new GenericTextField(250,40, Color.BLACK);
         surName.setLocation(50,250);
         add(surName);
+        // JLabel apellido
+        JLabel surNamelbl = new Label("Apellido",15);
+        surNamelbl.setBounds(50,220,100,40);
+        add(surNamelbl);
+
         // JTextField contraseña
         JTextField password = new GenericTextField(250,40, Color.BLACK);
         password.setLocation(50,325);
         add(password);
+        // JLabel contraseña
+        JLabel passwordlbl = new Label("Contraseña",15);
+        passwordlbl.setBounds(50,295,100,40);
+        add(passwordlbl);
 
 
     }
