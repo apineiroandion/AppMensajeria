@@ -3,6 +3,7 @@ package model.dao;
 import model.Usuario;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * CRUD de Usuarios
@@ -62,6 +63,10 @@ public class UsuarioDAO implements Consulta{
 
     }
 
+    /**
+     * Metodo que devuelve el resultado de la consulta proporcinada
+     * @param query
+     */
     public static void consultar(String query) {
         try {
             Connection con = DriverManager.getConnection(Conexion.getConnection().getUrl(),

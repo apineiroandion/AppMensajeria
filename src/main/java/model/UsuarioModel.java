@@ -2,8 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 public class UsuarioModel {
     private ArrayList<Usuario> usuarios;
+
+    public UsuarioModel() {
+
+    }
 
     /**
      * Metodo que crea un nuevo ususario
