@@ -67,13 +67,17 @@ public class RegisterWindow extends JFrame {
 
         // JButton registrarse
         JButton registerbtn = new GenericButton("Registrarse");
-        registerbtn.setBounds(75, 400, 200, 60);
+        registerbtn.setBounds(75, 380, 200, 60);
         add(registerbtn);
 
         // JButton cerrar
         JButton closebtn = new CloseButton();
         closebtn.setBounds(315,0,35,35);
         this.add(closebtn);
+
+        JLabel loginbl = new Label("Ya tienes una cuenta? Inicia sesion",15);
+        loginbl.setBounds(50, 450, 250, 40);
+        this.add(loginbl);
 
     }
 }
