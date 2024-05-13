@@ -1,6 +1,6 @@
 package view.resources;
 
-import view.resources.events.EventColor;
+import view.resources.events.EventBorderColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class GenericTextField extends JTextField{
         setBorder(BorderFactory.createLineBorder(borderColor, 2));
         setForeground(new Color(175, 175, 175));
         setBackground(new Color(40, 40, 40));
-        addFocusListener(new EventColor(this, borderColor, Color.white));
+        addFocusListener(new EventBorderColor(this, borderColor, Color.white));
     }
 
     /**
