@@ -1,8 +1,6 @@
 package view;
 
-import view.resources.GenericButton;
-import view.resources.GenericPasswordFIeld;
-import view.resources.GenericTextField;
+import view.resources.*;
 import view.resources.Label;
 
 import javax.swing.*;
@@ -83,25 +81,8 @@ public class LoginWindow extends JFrame {
         register.setBounds(75, 250, 100, 40);
         this.add(register);
         // JButton terminar proceso
-        JButton closebtn = new GenericButton("X");
+        JButton closebtn = new CloseButton();
         closebtn.setBounds(465,0,35,35);
-        closebtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                closebtn.setBackground(Color.RED);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                closebtn.setBackground(new java.awt.Color(40, 40, 40));
-            }
-        });
-        closebtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
         this.add(closebtn);
     }
 }
