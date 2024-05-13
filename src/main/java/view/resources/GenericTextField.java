@@ -14,7 +14,7 @@ public class GenericTextField extends JTextField{
      */
     public GenericTextField(int ancho, int alto, Color borderColor) {
         setSize(ancho, alto);
-        setFont(new Font("Arial", 0, 15));
+        setFont(new Font("Arial", Font.PLAIN, 15));
         setBorder(BorderFactory.createLineBorder(borderColor, 2));
         setForeground(new Color(175, 175, 175));
         setBackground(new Color(40, 40, 40));
@@ -28,7 +28,7 @@ public class GenericTextField extends JTextField{
      */
     public GenericTextField(int ancho, int alto) {
         setSize(ancho, alto);
-        setFont(new Font("Arial", 0, 15));
+        setFont(new Font("Arial", Font.PLAIN, 15));
         setForeground(new Color(175, 175, 175));
         setBackground(new Color(40, 40, 40));
     }
