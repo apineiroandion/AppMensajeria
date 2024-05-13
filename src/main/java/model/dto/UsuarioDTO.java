@@ -29,7 +29,7 @@ public class UsuarioDTO implements Consulta {
                 String apellido = rs.getString("surName");
                 String password = rs.getString("password");
                 // Crear un objeto Usuario y agregarlo a la lista
-                Usuario usuario = new Usuario(userName, firstName, apellido, password); // Suponiendo que tienes un constructor en la clase Usuario
+                Usuario usuario = new Usuario(id, userName, firstName, apellido, password); // Suponiendo que tienes un constructor en la clase Usuario
                 usuarios.add(usuario);
             }
             // Cerrar ResultSet, Statement y conexión
@@ -42,5 +42,6 @@ public class UsuarioDTO implements Consulta {
         System.out.println("Fin metodo");
         return usuarios;
     }
+
 }
 

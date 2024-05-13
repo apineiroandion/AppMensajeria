@@ -19,8 +19,11 @@ public class UsuarioModel {
      * @param password
      * @return el usuario creado
      */
-    public Usuario nuevoUsuario(String userName, String firstName, String surName, String password){
-        return new Usuario(userName, firstName, surName, password);
+    public Usuario nuevoUsuario(Integer idu, String userName, String firstName, String surName, String password){
+        return new Usuario(idu, userName, firstName, surName, password);
+    }
+    public void addUsuario(Usuario usuario){
+        usuarios.add(usuario);
     }
 
     public UsuarioModel(ArrayList<Usuario> usuarios) {

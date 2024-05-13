@@ -23,9 +23,13 @@ public class Main {
                 )
         );
         */
+        /*
         UsuarioDAO.consultar(Consulta.GET_ALL_USERS);
         model.setUsuarios(UsuarioDTO.nuevoUsuario());
         ConversacionDAO.insertarConversacion(conversacionModel.newConversacion(model.getUsuarios().getFirst(), model.getUsuarios().getLast()));
         ConversacionDAO.consultar(Consulta.GET_ALL_USERS);
+        */
+
+
     }
 }

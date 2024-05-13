@@ -40,7 +40,7 @@ public class Usuario {
      * @param surName
      * @param password
      */
-    public Usuario(String userName, String firstName, String surName, String password) {
+    public Usuario(Integer idu, String userName, String firstName, String surName, String password) {
         this.idu = idu;
         this.userName = userName;
         this.firstName = firstName;
