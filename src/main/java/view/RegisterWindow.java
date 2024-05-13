@@ -1,9 +1,7 @@
 package view;
 
-import view.resources.GenericButton;
-import view.resources.GenericPasswordFIeld;
+import view.resources.*;
 import view.resources.Label;
-import view.resources.GenericTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,6 +70,10 @@ public class RegisterWindow extends JFrame {
         registerbtn.setBounds(75, 400, 200, 60);
         add(registerbtn);
 
+        // JButton cerrar
+        JButton closebtn = new CloseButton();
+        closebtn.setBounds(315,0,35,35);
+        this.add(closebtn);
 
     }
 }
