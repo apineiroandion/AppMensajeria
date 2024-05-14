@@ -9,7 +9,7 @@ public class UserModel {
     /**
      * Lista de usuarios en la aplicación.
      */
-    private static ArrayList<User> users = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
 
     /**
      * Logea a un usuario en la aplicación.

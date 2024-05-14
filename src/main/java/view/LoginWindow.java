@@ -1,5 +1,6 @@
 package view;
 
+import controller.UserController;
 import view.resources.*;
 import view.resources.Label;
 
@@ -84,5 +85,16 @@ public class LoginWindow extends JFrame {
         JButton closebtn = new CloseButton();
         closebtn.setBounds(465,0,35,35);
         this.add(closebtn);
+
+        /**
+         * Acción de los botones
+         */
+        loginbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserController.comprobarlogin(usernametxt.getText(), pwtxt.getText());
+            }
+        });
     }
+
 }
