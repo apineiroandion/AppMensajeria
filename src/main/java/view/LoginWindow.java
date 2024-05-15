@@ -13,10 +13,16 @@ import java.awt.event.*;
  */
 public class LoginWindow extends JFrame {
     private Point initialClick;
+    private GenericTextField usernametxt;
+    private GenericPasswordFIeld pwtxt;
     public LoginWindow() {
 
-        // Mostrar todos los componentes de la ventana
-        createAndShowGUI();
+        // Mostrar todos los buttons del frame
+        crearBotones();
+        // Mostrar todos los labels del frame
+        crearLabels();
+        // Mostrar todos los textfields del frame
+        crearTextFields();
 
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -54,33 +60,14 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Iniciar todos los componentes del JFrame
+     * Iniciar todos los buttons del JFrame
      */
-    private void createAndShowGUI() {
-        // JTextField nombre usuario
-        JTextField usernametxt = new GenericTextField(350, 40, Color.black);
-        usernametxt.setLocation(75,100);
-        this.add(usernametxt);
-        // JTextField contraseña
-        JTextField pwtxt = new GenericPasswordFIeld(350, 40, Color.black);
-        pwtxt.setLocation(75,200);
-        this.add(pwtxt);
-        // JLabel usuario
-        JLabel usernamelbl = new Label("Usuario",20);
-        usernamelbl.setBounds(75, 65, 100, 40);
-        this.add(usernamelbl);
-        // JLabel contraseña
-        JLabel pwlbl = new Label("Contraseña",20);
-        pwlbl.setBounds(75, 165, 500, 40);
-        this.add(pwlbl);
+    private void crearBotones() {
         // JButton iniciar sesion
         JButton loginbtn = new GenericButton("Iniciar Sesión");
         loginbtn.setBounds(325, 250, 100, 40);
         this.add(loginbtn);
-        // JLabel registro
-        JLabel register = new Label("Registrarse",15, "http://google.com");
-        register.setBounds(75, 250, 100, 40);
-        this.add(register);
+
         // JButton terminar proceso
         JButton closebtn = new CloseButton();
         closebtn.setBounds(465,0,35,35);
@@ -95,6 +82,39 @@ public class LoginWindow extends JFrame {
                 UserController.comprobarlogin(usernametxt.getText(), pwtxt.getText());
             }
         });
+    }
+    /**
+     * Iniciar todos los labels del JFrame
+     */
+    private void crearLabels() {
+        // JLabel usuario
+        JLabel usernamelbl = new Label("Usuario",20);
+        usernamelbl.setBounds(75, 65, 100, 40);
+        this.add(usernamelbl);
+
+        // JLabel contraseña
+        JLabel pwlbl = new Label("Contraseña",20);
+        pwlbl.setBounds(75, 165, 500, 40);
+        this.add(pwlbl);
+
+        // JLabel registro
+        JLabel register = new Label("Registrarse",15, "http://google.com");
+        register.setBounds(75, 250, 100, 40);
+        this.add(register);
+    }
+    /**
+     * Iniciar todos los textfields del JFrame
+     */
+    private void crearTextFields() {
+        // JTextField nombre usuario
+        usernametxt = new GenericTextField(350, 40, Color.black);
+        usernametxt.setLocation(75,100);
+        this.add(usernametxt);
+
+        // JPasswordField contraseña
+        pwtxt = new GenericPasswordFIeld(350, 40, Color.black);
+        pwtxt.setLocation(75,200);
+        this.add(pwtxt);
     }
 
 }
