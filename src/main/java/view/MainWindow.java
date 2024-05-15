@@ -72,12 +72,6 @@ public class MainWindow extends JFrame {
          */
         rightBottomPanel = new RightBottomPanel();
         rightChatPanel.add(rightBottomPanel, BorderLayout.SOUTH);
-        gbcrightBottomPanel = new GridBagConstraints();
-        gbcrightBottomPanel.gridx = 0;
-        gbcrightBottomPanel.gridy = 0;
-        gbcrightBottomPanel.weightx = 0.8;
-        gbcrightBottomPanel.weighty = 1;
-        gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -94,6 +88,12 @@ public class MainWindow extends JFrame {
         // JTextField chatmsg
         chatmsg = new GenericTextField(100,50,Color.BLACK);
         chatmsg.setPreferredSize(new Dimension(chatmsg.getWidth(), 50));
+        gbcrightBottomPanel = new GridBagConstraints();
+        gbcrightBottomPanel.gridx = 0;
+        gbcrightBottomPanel.gridy = 0;
+        gbcrightBottomPanel.weightx = 0.8;
+        gbcrightBottomPanel.weighty = 1;
+        gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
         rightBottomPanel.add(chatmsg,gbcrightBottomPanel);
     }
     /**
@@ -102,9 +102,7 @@ public class MainWindow extends JFrame {
     private void crearButtons() {
         // JButton enviar
         sendButton = new GenericButton("Enviar");
-        sendButton.setMaximumSize(new Dimension(25,50));
-        sendButton.setMinimumSize(new Dimension(25,50));
-        sendButton.setPreferredSize(new Dimension(50,50));
+        sendButton.setPreferredSize(new Dimension(sendButton.getWidth(),50));
         gbcrightBottomPanel.gridx = 1;
         gbcrightBottomPanel.gridy = 0;
         gbcrightBottomPanel.weightx = 0.2;
