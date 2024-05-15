@@ -11,13 +11,9 @@ public class Conversacion {
      */
     private String codigoConversacion;
     /**
-     * Usuario 1 en la conversación
+     * ArrayList de Users que participan en la conversacion
      */
-    private User user1;
-    /**
-     * Usuario 2 en la conversación
-     */
-    private User user2;
+    private ArrayList<User> participantes;
     /**
      * Lista de mensajes en la conversación
      */
@@ -31,8 +27,9 @@ public class Conversacion {
      */
     public Conversacion(String codigoConversacion, User user1, User user2) {
         this.codigoConversacion = codigoConversacion;
-        this.user1 = user1;
-        this.user2 = user2;
+        participantes = new ArrayList<>();
+        participantes.add(user1);
+        participantes.add(user2);
         this.mensajes = new ArrayList<>();
     }
     /**
@@ -51,38 +48,23 @@ public class Conversacion {
     public void setCodigoConversacion(String codigoConversacion) {
         this.codigoConversacion = codigoConversacion;
     }
+
     /**
-     * Devuelve el primer usuario en la conversación.
-     *
-     * @return el primer usuario en la conversación
+     * Devuelve el array de participantes
+     * @return
      */
-    public User getUser1() {
-        return user1;
+    public ArrayList<User> getParticipantes() {
+        return participantes;
     }
+
     /**
-     * Establece el primer usuario en la conversación.
-     *
-     * @param user1 el primer usuario en la conversación
+     * Establece los participantes de la conversacoion
+     * @param participantes
      */
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setParticipantes(ArrayList<User> participantes) {
+        this.participantes = participantes;
     }
-    /**
-     * Devuelve el segundo usuario en la conversación.
-     *
-     * @return el segundo usuario en la conversación
-     */
-    public User getUser2() {
-        return user2;
-    }
-    /**
-     * Establece el segundo usuario en la conversación.
-     *
-     * @param user2 el segundo usuario en la conversación
-     */
-    public void setUser2(User user2) {
-        this.user2 = user2;
-    }
+
     /**
      * Devuelve la lista de mensajes en la conversación.
      *

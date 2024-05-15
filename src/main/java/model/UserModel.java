@@ -100,12 +100,11 @@ public class UserModel {
      *
      * @param contenido el contenido del mensaje
      * @param emisor    el usuario que envió el mensaje
-     * @param receptor  el usuario que recibió el mensaje
      * @param fecha     la fecha en la que se envió el mensaje
      * @return el mensaje creado
      */
-    public static Mensaje newMensaje(String contenido, User emisor, User receptor, String fecha){
-        return new Mensaje(contenido, emisor, receptor, fecha);
+    public static Mensaje newMensaje(String contenido, User emisor, String fecha){
+        return new Mensaje(contenido, emisor, fecha);
     }
 
     /**
