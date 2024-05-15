@@ -15,6 +15,7 @@ public class LoginWindow extends JFrame {
     private Point initialClick;
     private GenericTextField usernametxt;
     private GenericPasswordFIeld pwtxt;
+
     public LoginWindow() {
 
         // Mostrar todos los buttons del frame

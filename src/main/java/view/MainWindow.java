@@ -8,38 +8,55 @@ import view.resources.Label;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Frame ventana principal
+ */
 public class MainWindow extends JFrame {
+    private LeftPanel leftPanel;
+    private BottomLeftPanel bottomLeftPanel;
+    private RightChatPanel rightChatPanel;
+    private Label userNamelbl;
+
     public MainWindow() {
+        setLayout(new BorderLayout());
+        // Mostrar todos los panels del frame
+        crearPanels();
+        // Mostrar todos los labels del frame
+        crearLabels();
         setSize(800, 600);
         setTitle("Chats");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
-        createAndShowGUI();
         setVisible(true);
     }
-    private void createAndShowGUI() {
-        // Crear y mostrar todos los componentes de la ventana
 
+    /**
+     * Iniciar todos los panels del JFrame
+     */
+    private void crearPanels() {
         /**
          * leftPanel BorderLayout
          */
-        JPanel leftPanel = new LeftPanel();
+        leftPanel = new LeftPanel();
         this.add(leftPanel, BorderLayout.WEST);
 
         /**
          * bottomLeftPanel GridBagLayout
          */
-        JPanel bottomLeftPanel = new BottomLeftPanel();
+        bottomLeftPanel = new BottomLeftPanel();
         leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
-
-        JLabel userNamelbl = new Label("UserName",15);
-        bottomLeftPanel.add(userNamelbl);
 
         /**
          * rightChatPanel BorderLayout
          */
-        JPanel rightChatPanel = new RightChatPanel();
+        rightChatPanel = new RightChatPanel();
         add(rightChatPanel, BorderLayout.CENTER);
+    }
+    /**
+     * Iniciar todos los labels del JFrame
+     */
+    private void crearLabels(){
+        userNamelbl = new Label("UserName",15);
+        bottomLeftPanel.add(userNamelbl);
     }
 }
