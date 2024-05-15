@@ -34,6 +34,9 @@ public class RegisterWindow extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Iniciar todos los textfields del Jframe
+     */
     private void crearTextFields() {
         // JTextField nombre usuario
         userName = new GenericTextField(250, 40, Color.BLACK);
@@ -56,6 +59,9 @@ public class RegisterWindow extends JFrame {
         add(password);
     }
 
+    /**
+     * Iniciar todos los labels del Jframe
+     */
     private void crearLabels() {
         // JLabel titulo
         JLabel title = new Label("Registro", 40);
@@ -87,6 +93,9 @@ public class RegisterWindow extends JFrame {
         this.add(loginlbl);
     }
 
+    /**
+     * Iniciar todos los buttons del Jframe
+     */
     private void crearButtons() {
         // JButton registrarse
         JButton registerbtn = new GenericButton("Registrarse");
