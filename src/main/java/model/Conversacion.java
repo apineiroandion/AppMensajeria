@@ -9,7 +9,7 @@ public class Conversacion {
     /**
      * Código único de la conversación
      */
-    private String codigoConversacion;
+    private Integer codigoConversacion;
     /**
      * ArrayList de Users que participan en la conversacion
      */
@@ -25,7 +25,7 @@ public class Conversacion {
      * @param user1              el primer usuario en la conversación
      * @param user2              el segundo usuario en la conversación
      */
-    public Conversacion(String codigoConversacion, User user1, User user2) {
+    public Conversacion(Integer codigoConversacion, User user1, User user2) {
         this.codigoConversacion = codigoConversacion;
         participantes = new ArrayList<>();
         participantes.add(user1);
@@ -37,7 +37,7 @@ public class Conversacion {
      *
      * @return el código de la conversación
      */
-    public String getCodigoConversacion() {
+    public Integer getCodigoConversacion() {
         return codigoConversacion;
     }
     /**
@@ -45,7 +45,7 @@ public class Conversacion {
      *
      * @param codigoConversacion el código de la conversación
      */
-    public void setCodigoConversacion(String codigoConversacion) {
+    public void setCodigoConversacion(Integer codigoConversacion) {
         this.codigoConversacion = codigoConversacion;
     }
 

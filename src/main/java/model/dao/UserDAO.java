@@ -13,6 +13,35 @@ import java.util.ArrayList;
  * Esta clase proporciona métodos para obtener usuarios de la base de datos y para añadir nuevos usuarios a la base de datos.
  */
 public class UserDAO {
+
+    /**
+     * Obtiene todos los usuarios de una conversación específica de la base de datos.
+     * Este método consulta la tabla 'tienen' en la base de datos y devuelve una lista de objetos User.
+     *
+     * @param codigoConversacion el código de la conversación de la que se van a obtener los usuarios.
+     * @return ArrayList<User> una lista de todos los usuarios en la conversación especificada en la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener los usuarios de la conversación de la base de datos.
+     */
+    public static ArrayList<User> getUserByConversationFromDB(Integer codigoConversacion){
+        ArrayList<User> usersByC = new ArrayList<>();
+        try (Connection con = DatabaseConnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM tienen WHERE codigoConversacion = ?")) {
+
+            while (rs.next()) {
+                String userName = rs.getString("userName");
+                String firstName = rs.getString("firstName");
+                String surName = rs.getString("surName");
+                String password = rs.getString("password");
+                User user = new User(userName, firstName, surName, password);
+                usersByC.add(user);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener usuarios de la base de datos", e);
+        }
+        return usersByC;
+    }
+
     /**
      * Obtiene todos los usuarios de la base de datos.
      * Este método consulta la tabla de usuarios en la base de datos y devuelve una lista de objetos User.

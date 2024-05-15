@@ -91,7 +91,7 @@ public class UserModel {
      * @param user2              el segundo usuario en la conversación
      * @return la conversación creada
      */
-    public static Conversacion newConversacion(String codigoConversacion, User user1, User user2){
+    public static Conversacion newConversacion(Integer codigoConversacion, User user1, User user2){
         return new Conversacion(codigoConversacion, user1, user2);
     }
 
