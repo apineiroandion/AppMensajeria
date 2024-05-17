@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Mensaje {
     /**
@@ -14,19 +14,18 @@ public class Mensaje {
     /**
      * Fecha en la que se envió el mensaje
      */
-    private String fecha;
+    private LocalDate fecha;
 
     /**
      * Crea un nuevo mensaje con los detalles proporcionados.
      *
      * @param contenido el contenido del mensaje
      * @param emisor    el usuario que envió el mensaje
-     * @param fecha     la fecha en la que se envió el mensaje
      */
-    public Mensaje(String contenido, User emisor, String fecha) {
+    public Mensaje(String contenido, User emisor) {
         this.contenido = contenido;
         this.emisor = emisor;
-        this.fecha = fecha;
+        this.fecha = LocalDate.now();
     }
     /**
      * Devuelve el contenido del mensaje.
@@ -65,7 +64,7 @@ public class Mensaje {
      *
      * @return la fecha en la que se envió el mensaje
      */
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
     /**
@@ -73,7 +72,7 @@ public class Mensaje {
      *
      * @param fecha la fecha en la que se envió el mensaje
      */
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 }

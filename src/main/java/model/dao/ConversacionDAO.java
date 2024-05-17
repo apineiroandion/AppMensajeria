@@ -33,9 +33,7 @@ public class ConversacionDAO {
             while (rs.next()) {
                 Integer codigoConversacion = rs.getInt("codigoConversacion");
                 ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
-                // Asume que tienes un constructor adecuado o métodos setter para establecer los valores de las columnas
                 Conversacion conversacion = new Conversacion(codigoConversacion, participantes.getFirst(), participantes.getLast());
-                // Asegúrate de que los nombres de las columnas coinciden con los de tu tabla de conversaciones
                 conversaciones.add(conversacion);
             }
         } catch (Exception e) {
