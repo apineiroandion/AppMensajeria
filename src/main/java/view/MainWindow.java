@@ -6,6 +6,7 @@ import view.resources.GenericTextField;
 import view.resources.Label;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -22,6 +23,7 @@ public class MainWindow extends JFrame {
 
     // Labels
     private Label userNamelbl;
+    private Label userNameTopRightlbl;
 
     // TextFields
     private GenericTextField chatmsg;
@@ -41,6 +43,7 @@ public class MainWindow extends JFrame {
         crearButtons();
         setSize(800, 600);
         setTitle("Chats");
+        setMinimumSize(new Dimension(800, 600));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -52,30 +55,40 @@ public class MainWindow extends JFrame {
     private void crearPanels() {
         /**
          * leftPanel BorderLayout
+         * Panel izquierdo
+         * Lista de conversaciones y nombre de usuario
          */
         leftPanel = new LeftPanel();
         this.add(leftPanel, BorderLayout.WEST);
 
         /**
          * bottomLeftPanel GridBagLayout
+         * Panel inferior izquierdo
+         * Nombre de usuario
          */
         bottomLeftPanel = new BottomLeftPanel();
         leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
 
         /**
          * rightPanel BorderLayout
+         * Panel derecho
+         * Chat
          */
         rightPanel = new RightPanel();
         add(rightPanel, BorderLayout.CENTER);
 
         /**
          * topRightPanel GridBagLayout
+         * Panel superior derecho
+         * Nombre usuario chat
          */
         topRightPanel = new TopRightPanel();
         rightPanel.add(topRightPanel, BorderLayout.NORTH);
 
         /**
          * bottomRightPanel GridBagLayout
+         * Panel inferior derecho
+         * Textfield y botón enviar
          */
         bottomRightPanel = new BottomRightPanel();
         rightPanel.add(bottomRightPanel, BorderLayout.SOUTH);
@@ -87,6 +100,11 @@ public class MainWindow extends JFrame {
         // Label UserName
         userNamelbl = new Label("UserName",15);
         bottomLeftPanel.add(userNamelbl);
+        // Label UserName panel derecho arriba
+        userNameTopRightlbl = new Label("UserName",20);
+        // Añadir un borde a la izquierda para que la label no esté pegada al borde
+        userNameTopRightlbl.setBorder(new EmptyBorder(0, 10, 0, 0));
+        topRightPanel.add(userNameTopRightlbl, BorderLayout.WEST);
     }
     /**
      * Iniciar todos los textfields del JFrame
