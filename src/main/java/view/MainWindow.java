@@ -16,6 +16,7 @@ public class MainWindow extends JFrame {
     private LeftPanel leftPanel;
     private BottomLeftPanel bottomLeftPanel;
     private RightChatPanel rightChatPanel;
+    private RightTopPanel rightTopPanel;
     private RightBottomPanel rightBottomPanel;
     private GridBagConstraints gbcrightBottomPanel;
 
@@ -66,6 +67,12 @@ public class MainWindow extends JFrame {
          */
         rightChatPanel = new RightChatPanel();
         add(rightChatPanel, BorderLayout.CENTER);
+
+        /**
+         * rightTopPanel GridBagLayout
+         */
+        rightTopPanel = new RightTopPanel();
+        rightChatPanel.add(rightTopPanel, BorderLayout.NORTH);
 
         /**
          * rightBottomPanel GridBagLayout
