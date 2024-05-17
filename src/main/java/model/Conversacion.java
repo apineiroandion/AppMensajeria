@@ -22,14 +22,11 @@ public class Conversacion {
      * Crea una nueva conversación con los detalles proporcionados.
      *
      * @param codigoConversacion el código de la conversación
-     * @param user1              el primer usuario en la conversación
-     * @param user2              el segundo usuario en la conversación
+     * @param participantes lista de los participantes en la conversacion
      */
-    public Conversacion(Integer codigoConversacion, User user1, User user2) {
+    public Conversacion(Integer codigoConversacion, ArrayList<User> participantes) {
         this.codigoConversacion = codigoConversacion;
         participantes = new ArrayList<>();
-        participantes.add(user1);
-        participantes.add(user2);
         this.mensajes = new ArrayList<>();
     }
     /**

@@ -88,12 +88,11 @@ public class UserModel {
      * Crea una nueva conversación con los detalles proporcionados.
      *
      * @param codigoConversacion el código de la conversación
-     * @param user1              el primer usuario en la conversación
-     * @param user2              el segundo usuario en la conversación
+     * @param participantes lista de los participantes en la conversacion
      * @return la conversación creada
      */
-    public static Conversacion newConversacion(Integer codigoConversacion, User user1, User user2){
-        return new Conversacion(codigoConversacion, user1, user2);
+    public static Conversacion newConversacion(Integer codigoConversacion, ArrayList<User> participantes){
+        return new Conversacion(codigoConversacion, participantes);
     }
 
     /**

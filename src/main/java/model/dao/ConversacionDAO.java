@@ -31,7 +31,7 @@ public class ConversacionDAO {
             while (rs.next()) {
                 Integer codigoConversacion = rs.getInt("codigoConversacion");
                 ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
-                Conversacion conversacion = new Conversacion(codigoConversacion, participantes.getFirst(), participantes.getLast());
+                Conversacion conversacion = new Conversacion(codigoConversacion, participantes);
                 conversaciones.add(conversacion);
             }
         } catch (Exception e) {
