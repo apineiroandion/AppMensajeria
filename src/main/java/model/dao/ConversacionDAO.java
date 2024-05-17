@@ -3,9 +3,7 @@ package model.dao;
 import model.Conversacion;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 import static model.UserModel.users;
@@ -41,4 +39,67 @@ public class ConversacionDAO {
         }
         return conversaciones;
     }
+
+    /**
+     * Comprueba la inserción de una nueva conversación en la base de datos
+     * y luego imprime todas las conversaciones existentes.
+     */
+    public static void comprobarInsertConversacion() {
+        insertarConversacion();
+        imprimirConversaciones();
+    }
+
+    /**
+     * Inserta una nueva conversación en la tabla `conversacion` de la base de datos.
+     * La columna `codigoConversacion` es de tipo SERIAL y se genera automáticamente.
+     *
+     * @throws RuntimeException si ocurre un error durante la inserción en la base de datos.
+     */
+    private static void insertarConversacion() {
+        String insertSQL = "INSERT INTO conversacion DEFAULT VALUES";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(insertSQL)) {
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al insertar en la base de datos", e);
+        }
+    }
+
+    /**
+     * Imprime todas las conversaciones de la tabla `conversacion` de la base de datos.
+     * Cada fila de la tabla se imprime con su valor de `codigoConversacion`.
+     *
+     * @throws RuntimeException si ocurre un error al obtener los datos de la base de datos.
+     */
+    private static void imprimirConversaciones() {
+        String selectSQL = "SELECT * FROM conversacion";
+        try (Connection con = DatabaseConnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(selectSQL)) {
+            while (rs.next()) {
+                Integer codigoConversacion = rs.getInt("codigoConversacion");
+                System.out.println(codigoConversacion);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener datos de la base de datos", e);
+        }
+    }
+
+    /**
+     * Borra todas las filas de la tabla `conversacion` de la base de datos.
+     * Imprime el número de filas afectadas por la operación de borrado.
+     *
+     * @throws RuntimeException si ocurre un error durante el borrado en la base de datos.
+     */
+    public static void borrarTodosLasConversaciones() {
+        String deleteSQL = "DELETE FROM conversacion";
+        try (Connection con = DatabaseConnection.getConnection();
+             Statement stmt = con.createStatement()) {
+            int rowsAffected = stmt.executeUpdate(deleteSQL);
+            System.out.println("Se han borrado " + rowsAffected + " filas.");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al borrar los datos de la tabla conversacion", e);
+        }
+    }
+
 }

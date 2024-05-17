@@ -2,8 +2,11 @@ package controller;
 
 import model.User;
 import model.UserModel;
+import model.dao.DatabaseConnection;
 import view.LoginWindow;
 import view.RegisterWindow;
+
+import java.sql.*;
 
 import static model.UserModel.users;
 
@@ -11,8 +14,8 @@ public class UserController {
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
 
-        LoginWindow loginWindow = new LoginWindow();
-        loginWindow.setVisible(true);
+        //LoginWindow loginWindow = new LoginWindow();
+        //loginWindow.setVisible(true);
 
         User user1 = new User("user1", "User", "One", "password");
         users.add(user1);
@@ -20,6 +23,7 @@ public class UserController {
         RegisterWindow registerWindow = new RegisterWindow();
         registerWindow.setVisible(true);
          */
+
     }
 
     /**
@@ -35,4 +39,5 @@ public class UserController {
             System.out.println("Usuario no logeado");
         }
     }
+
 }
