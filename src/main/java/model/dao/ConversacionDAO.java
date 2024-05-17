@@ -45,7 +45,7 @@ public class ConversacionDAO {
      * y luego imprime todas las conversaciones existentes.
      */
     public static void comprobarInsertConversacion() {
-        insertarConversacion();
+        insertarConversacionSinDatos();
         imprimirConversaciones();
     }
 
@@ -55,7 +55,7 @@ public class ConversacionDAO {
      *
      * @throws RuntimeException si ocurre un error durante la inserción en la base de datos.
      */
-    private static void insertarConversacion() {
+    private static void insertarConversacionSinDatos() {
         String insertSQL = "INSERT INTO conversacion DEFAULT VALUES";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement(insertSQL)) {
@@ -101,5 +101,48 @@ public class ConversacionDAO {
             throw new RuntimeException("Error al borrar los datos de la tabla conversacion", e);
         }
     }
+
+    /**
+     * Inserta una nueva conversación entre dos usuarios en la base de datos.
+     *
+     * @param userName1 El nombre de usuario del primer participante.
+     * @param userName2 El nombre de usuario del segundo participante.
+     * @return true si la conversación se insertó correctamente, false en caso contrario.
+     */
+    private static boolean insertarConversacion(String userName1, String userName2) {
+        String insertConversationSQL = "INSERT INTO conversacion DEFAULT VALUES RETURNING codigoConversacion";
+        String insertUserConversationSQL = "INSERT INTO tienen (codigoConversacion, userName) VALUES (?, ?)";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmtConversation = con.prepareStatement(insertConversationSQL);
+             PreparedStatement pstmtUserConversation = con.prepareStatement(insertUserConversationSQL)) {
+
+            // Insertar nueva conversación y obtener el ID generado
+            ResultSet rs = pstmtConversation.executeQuery();
+            int codigoConversacion;
+            if (rs.next()) {
+                codigoConversacion = rs.getInt(1);
+            } else {
+                throw new SQLException("No se pudo obtener el ID de la nueva conversación");
+            }
+
+            // Insertar el primer usuario en la conversación
+            pstmtUserConversation.setInt(1, codigoConversacion);
+            pstmtUserConversation.setString(2, userName1);
+            pstmtUserConversation.executeUpdate();
+
+            // Insertar el segundo usuario en la conversación
+            pstmtUserConversation.setInt(1, codigoConversacion);
+            pstmtUserConversation.setString(2, userName2);
+            pstmtUserConversation.executeUpdate();
+
+            return true; // Si se ejecutó correctamente, devolvemos true
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprimir la excepción para el registro de errores
+            return false; // Si ocurrió un error, devolvemos false
+        }
+    }
+
 
 }
