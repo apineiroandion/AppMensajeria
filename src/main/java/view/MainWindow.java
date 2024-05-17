@@ -30,6 +30,7 @@ public class MainWindow extends JFrame {
 
     // Buttons
     private GenericButton sendButton;
+    private GenericButton userMenuButton;
 
     public MainWindow() {
         setLayout(new BorderLayout());
@@ -100,6 +101,7 @@ public class MainWindow extends JFrame {
         // Label UserName
         userNamelbl = new Label("UserName",15);
         bottomLeftPanel.add(userNamelbl);
+
         // Label UserName panel derecho arriba
         userNameTopRightlbl = new Label("UserName",20);
         // Añadir un borde a la izquierda para que la label no esté pegada al borde
@@ -134,5 +136,10 @@ public class MainWindow extends JFrame {
         gbcrightBottomPanel.weighty = 1;
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
         bottomRightPanel.add(sendButton,gbcrightBottomPanel);
+
+        // TODO: ponerle un simbolo de menú
+        // JButton menú usuario
+        userMenuButton = new GenericButton("Menu");
+        topRightPanel.add(userMenuButton, BorderLayout.EAST);
     }
 }
