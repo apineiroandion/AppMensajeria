@@ -15,9 +15,9 @@ public class MainWindow extends JFrame {
     // Paneles
     private LeftPanel leftPanel;
     private BottomLeftPanel bottomLeftPanel;
-    private RightChatPanel rightChatPanel;
-    private RightTopPanel rightTopPanel;
-    private RightBottomPanel rightBottomPanel;
+    private RightPanel rightPanel;
+    private TopRightPanel topRightPanel;
+    private BottomRightPanel bottomRightPanel;
     private GridBagConstraints gbcrightBottomPanel;
 
     // Labels
@@ -63,22 +63,22 @@ public class MainWindow extends JFrame {
         leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
 
         /**
-         * rightChatPanel BorderLayout
+         * rightPanel BorderLayout
          */
-        rightChatPanel = new RightChatPanel();
-        add(rightChatPanel, BorderLayout.CENTER);
+        rightPanel = new RightPanel();
+        add(rightPanel, BorderLayout.CENTER);
 
         /**
-         * rightTopPanel GridBagLayout
+         * topRightPanel GridBagLayout
          */
-        rightTopPanel = new RightTopPanel();
-        rightChatPanel.add(rightTopPanel, BorderLayout.NORTH);
+        topRightPanel = new TopRightPanel();
+        rightPanel.add(topRightPanel, BorderLayout.NORTH);
 
         /**
-         * rightBottomPanel GridBagLayout
+         * bottomRightPanel GridBagLayout
          */
-        rightBottomPanel = new RightBottomPanel();
-        rightChatPanel.add(rightBottomPanel, BorderLayout.SOUTH);
+        bottomRightPanel = new BottomRightPanel();
+        rightPanel.add(bottomRightPanel, BorderLayout.SOUTH);
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -101,7 +101,7 @@ public class MainWindow extends JFrame {
         gbcrightBottomPanel.weightx = 0.8;
         gbcrightBottomPanel.weighty = 1;
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
-        rightBottomPanel.add(chatmsg,gbcrightBottomPanel);
+        bottomRightPanel.add(chatmsg,gbcrightBottomPanel);
     }
     /**
      * Iniciar todos los buttons del JFrame
@@ -115,6 +115,6 @@ public class MainWindow extends JFrame {
         gbcrightBottomPanel.weightx = 0.2;
         gbcrightBottomPanel.weighty = 1;
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
-        rightBottomPanel.add(sendButton,gbcrightBottomPanel);
+        bottomRightPanel.add(sendButton,gbcrightBottomPanel);
     }
 }

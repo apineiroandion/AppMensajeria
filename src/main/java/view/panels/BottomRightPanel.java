@@ -3,8 +3,8 @@ package view.panels;
 import javax.swing.*;
 import java.awt.*;
 
-public class RightBottomPanel extends JPanel {
-    public RightBottomPanel() {
+public class BottomRightPanel extends JPanel {
+    public BottomRightPanel() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
     }
