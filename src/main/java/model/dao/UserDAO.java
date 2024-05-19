@@ -2,10 +2,7 @@ package model.dao;
 
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -129,6 +126,18 @@ public class UserDAO {
 
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar usuario en la base de datos", e);
+        }
+    }
+
+    /**
+     * Borra todos los usuarios de la base de datos
+     */
+    public static void deleteAllUsersFromDB(){
+        try (Connection con = DatabaseConnection.getConnection();
+        PreparedStatement pstmt = con.prepareStatement("DELETE FROM users")){
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al borrar usuarios");
         }
     }
 }
