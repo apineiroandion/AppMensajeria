@@ -25,6 +25,7 @@ public class UserController {
         users = UserDAO.getUserFromDB();
         System.out.println(users.get(1).getUserName().toString());
         */
+        //UserDAO.addUserToDB(new User("UsuarioPrueba", "usuario", "prueba", "1234"));
         openLoginWindow();
     }
 
@@ -35,6 +36,7 @@ public class UserController {
      * @param password la contraseña del usuario
      */
     public static void comprobarlogin(String userName, String password){
+        volvadoDatosLogin(userName, password);
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
             // TODO: Abrir ventana principal
@@ -72,6 +74,17 @@ public class UserController {
      */
     public static User loginInDB(String userName, String password){
         return UserDAO.getUserForLogin(userName, password);
+    }
+
+    public static boolean volvadoDatosLogin(String userName,String password){
+        User user= loginInDB(userName, password);
+        if(user != null){
+            users.add(user);
+            return true;
+        }else{
+            System.out.println("Usuario o contraseña incorrecta");
+            return false;
+        }
     }
 
 }
