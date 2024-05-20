@@ -21,6 +21,8 @@ public class MainWindow extends JFrame {
     private GridBagConstraints gbcrightBottomPanel;
     private ConversationListPanel conversationListPanel;
 
+    private ChatPanel chatPanel;
+
     // Labels
     private Label userNamelbl;
     private Label userNameTopRightlbl;
@@ -48,6 +50,17 @@ public class MainWindow extends JFrame {
         crearButtons();
         // Mostrar scrollpanes
         crearScrollPanes();
+
+        // Añadir mensajes de prueba
+        chatPanel.addMessage("Hola", true);
+        chatPanel.addMessage("Que tal", false);
+        chatPanel.addMessage("Bien", true);
+
+        // Añadir conversaciones de prueba
+        conversationListPanel.addConversation("conversacion 1");
+        conversationListPanel.addConversation("conversacion 2");
+        conversationListPanel.addConversation("conversacion 3");
+
         setSize(800, 600);
         setTitle("Chats");
         setMinimumSize(new Dimension(800, 600));
@@ -103,11 +116,8 @@ public class MainWindow extends JFrame {
         // JPanel que contiene los ConversationPanel
         conversationListPanel = new ConversationListPanel();
 
-        // Añadir algunas conversaciones de prueba
-        for (int i = 0; i < 5; i++) {
-            ConversationPanel conversationPanel = new ConversationPanel("Conversacion " + i);
-            conversationListPanel.add(conversationPanel);
-        }
+        // JPanel que contiene los mensajes de chat
+        chatPanel = new ChatPanel();
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -164,13 +174,16 @@ public class MainWindow extends JFrame {
         // JScrollPane conversaciones
         conversationsScrollPane = new ConversationsScrollPane();
         leftPanel.add(conversationsScrollPane, BorderLayout.CENTER);
+        // Añadir panel conversaciones
+        conversationsScrollPane.setViewportView(conversationListPanel);
 
         // JScrollPane chat
         chatScrollPane = new ChatScrollPane();
         rightPanel.add(chatScrollPane, BorderLayout.CENTER);
+        // Añadir panel mensajes
+        chatScrollPane.setViewportView(chatPanel);
 
 
 
-        conversationsScrollPane.setViewportView(conversationListPanel);
     }
 }
