@@ -1,8 +1,7 @@
 package view;
 
 import view.panels.*;
-import view.resources.GenericButton;
-import view.resources.GenericTextField;
+import view.resources.*;
 import view.resources.Label;
 
 import javax.swing.*;
@@ -32,6 +31,10 @@ public class MainWindow extends JFrame {
     private GenericButton sendButton;
     private GenericButton userMenuButton;
 
+    // ScrollPanes
+    private ConversationsScrollPane conversationsScrollPane;
+    private ChatScrollPane chatScrollPane;
+
     public MainWindow() {
         setLayout(new BorderLayout());
         // Mostrar todos los panels del frame
@@ -42,6 +45,8 @@ public class MainWindow extends JFrame {
         crearTextFields();
         // Mostrar todos los buttons del frame
         crearButtons();
+        // Mostrar scrollpanes
+        crearScrollPanes();
         setSize(800, 600);
         setTitle("Chats");
         setMinimumSize(new Dimension(800, 600));
@@ -141,5 +146,17 @@ public class MainWindow extends JFrame {
         // JButton menú usuario
         userMenuButton = new GenericButton("Menu");
         topRightPanel.add(userMenuButton, BorderLayout.EAST);
+    }
+    /**
+     * Iniciar todos los scrollpanes del JFrame
+     */
+    private void crearScrollPanes() {
+        // JScrollPane conversaciones
+        conversationsScrollPane = new ConversationsScrollPane();
+        leftPanel.add(conversationsScrollPane, BorderLayout.CENTER);
+
+        // JScrollPane chat
+        chatScrollPane = new ChatScrollPane();
+        rightPanel.add(chatScrollPane, BorderLayout.CENTER);
     }
 }
