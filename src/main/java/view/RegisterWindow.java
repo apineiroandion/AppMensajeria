@@ -109,7 +109,7 @@ public class RegisterWindow extends JFrame {
         registerbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserController.registrarUsuario(userName.getText(), firstName.getText(), surName.getText(), password.getText());
+                UserController.comprobarRegistro(userName.getText(), firstName.getText(), surName.getText(), password.getText());
                 dispose();
             }
         });
