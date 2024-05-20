@@ -37,6 +37,7 @@ public class UserController {
     public static void comprobarlogin(String userName, String password){
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
+            // TODO: Abrir ventana principal
         }else{
             System.out.println("Usuario no logeado");
         }
@@ -61,6 +62,16 @@ public class UserController {
     public static void openMainWindow(){
         MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
+    }
+
+    /**
+     * Comprueba si el usuario que intentar loggear en la app esta en la base de datos
+     * @param userName
+     * @param password
+     * @return El usuario para meterlo en el ArrayList local de usuarios
+     */
+    public static User loginInDB(String userName, String password){
+        return UserDAO.getUserForLogin(userName, password);
     }
 
 }
