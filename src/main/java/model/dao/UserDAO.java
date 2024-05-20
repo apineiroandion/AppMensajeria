@@ -140,4 +140,28 @@ public class UserDAO {
             throw new RuntimeException("Error al borrar usuarios");
         }
     }
+
+    public static User getUserForLogin(String userName, String password) {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE userName = ? AND password = ?")) {
+
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String dbUserName = rs.getString("userName");
+                    String firstName = rs.getString("firstName");
+                    String surName = rs.getString("surName");
+                    String dbPassword = rs.getString("password");
+
+                    return new User(dbUserName, firstName, surName, dbPassword);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener usuarios de la base de datos", e);
+        }
+        return null;
+    }
+
 }
