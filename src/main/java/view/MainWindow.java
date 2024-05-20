@@ -99,6 +99,15 @@ public class MainWindow extends JFrame {
          */
         bottomRightPanel = new BottomRightPanel();
         rightPanel.add(bottomRightPanel, BorderLayout.SOUTH);
+
+        // JPanel que contiene los ConversationPanel
+        conversationListPanel = new ConversationListPanel();
+
+        // Añadir algunas conversaciones de prueba
+        for (int i = 0; i < 5; i++) {
+            ConversationPanel conversationPanel = new ConversationPanel("Conversacion " + i);
+            conversationListPanel.add(conversationPanel);
+        }
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -161,14 +170,7 @@ public class MainWindow extends JFrame {
         rightPanel.add(chatScrollPane, BorderLayout.CENTER);
 
 
-        // JPanel que contiene los ConversationPanel
-        conversationListPanel = new ConversationListPanel();
 
-        // Añadir algunas conversaciones de prueba
-        for (int i = 0; i < 5; i++) {
-            ConversationPanel conversationPanel = new ConversationPanel("Usuario " + i);
-            conversationListPanel.add(conversationPanel);
-        }
         conversationsScrollPane.setViewportView(conversationListPanel);
     }
 }
