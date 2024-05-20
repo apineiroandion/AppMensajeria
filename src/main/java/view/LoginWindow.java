@@ -99,9 +99,15 @@ public class LoginWindow extends JFrame {
         this.add(pwlbl);
 
         // JLabel registro
-        JLabel register = new Label("Registrarse",15, "http://google.com");
+        JLabel register = new Label("Registrarse",15);
         register.setBounds(75, 250, 100, 40);
         this.add(register);
+        register.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                UserController.openRegisterWindow();
+            }
+        });
     }
     /**
      * Iniciar todos los textfields del JFrame

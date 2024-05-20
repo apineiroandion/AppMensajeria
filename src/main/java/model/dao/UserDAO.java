@@ -73,7 +73,7 @@ public class UserDAO {
      * @param user el objeto User que representa al usuario que se va a añadir a la base de datos.
      * @throws RuntimeException si ocurre un error al añadir el usuario a la base de datos.
      */
-    public static void addUserToDB(User user){
+    public static boolean addUserToDB(User user){
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement("INSERT INTO users (userName, firstName, surName, password) VALUES (?, ?, ?, ?)")) {
 
@@ -82,6 +82,7 @@ public class UserDAO {
             pstmt.setString(3, user.getSurName());
             pstmt.setString(4, user.getPassword());
             pstmt.executeUpdate();
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException("Error al añadir usuario a la base de datos", e);

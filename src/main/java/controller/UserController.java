@@ -93,4 +93,17 @@ public class UserController {
         }
     }
 
+    public static boolean registrarUsuario(String userName,String firstName, String surname, String password){
+        return UserDAO.addUserToDB(new User(userName,firstName,surname,password));
+    }
+
+    public static void comprobarRegistro(String userName,String firstName, String surname, String password){
+        boolean comprobar = registrarUsuario(userName,firstName,surname,password);
+        if(comprobar){
+            System.out.println("Usuario registrado");
+        }else{
+            System.out.println("Error al registrar el usuario");
+        }
+    }
+
 }
