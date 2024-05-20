@@ -76,6 +76,12 @@ public class UserController {
         return UserDAO.getUserForLogin(userName, password);
     }
 
+    /**
+     * Coge la entity de la DB, la convierte en un objeto y lo mete dentro del array de usuarios
+     * @param userName
+     * @param password
+     * @return boolean conforme la operacion se ha relaizado con exito
+     */
     public static boolean volvadoDatosLogin(String userName,String password){
         User user= loginInDB(userName, password);
         if(user != null){
