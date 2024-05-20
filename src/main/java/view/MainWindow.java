@@ -19,6 +19,7 @@ public class MainWindow extends JFrame {
     private TopRightPanel topRightPanel;
     private BottomRightPanel bottomRightPanel;
     private GridBagConstraints gbcrightBottomPanel;
+    private ConversationListPanel conversationListPanel;
 
     // Labels
     private Label userNamelbl;
@@ -158,5 +159,16 @@ public class MainWindow extends JFrame {
         // JScrollPane chat
         chatScrollPane = new ChatScrollPane();
         rightPanel.add(chatScrollPane, BorderLayout.CENTER);
+
+
+        // JPanel que contiene los ConversationPanel
+        conversationListPanel = new ConversationListPanel();
+
+        // Añadir algunas conversaciones de prueba
+        for (int i = 0; i < 5; i++) {
+            ConversationPanel conversationPanel = new ConversationPanel("Usuario " + i);
+            conversationListPanel.add(conversationPanel);
+        }
+        conversationsScrollPane.setViewportView(conversationListPanel);
     }
 }
