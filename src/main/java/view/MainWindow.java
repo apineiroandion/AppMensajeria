@@ -1,8 +1,7 @@
 package view;
 
 import view.panels.*;
-import view.resources.GenericButton;
-import view.resources.GenericTextField;
+import view.resources.*;
 import view.resources.Label;
 
 import javax.swing.*;
@@ -20,6 +19,9 @@ public class MainWindow extends JFrame {
     private TopRightPanel topRightPanel;
     private BottomRightPanel bottomRightPanel;
     private GridBagConstraints gbcrightBottomPanel;
+    private ConversationListPanel conversationListPanel;
+
+    private ChatPanel chatPanel;
 
     // Labels
     private Label userNamelbl;
@@ -32,6 +34,10 @@ public class MainWindow extends JFrame {
     private GenericButton sendButton;
     private GenericButton userMenuButton;
 
+    // ScrollPanes
+    private ConversationsScrollPane conversationsScrollPane;
+    private ChatScrollPane chatScrollPane;
+
     public MainWindow() {
         setLayout(new BorderLayout());
         // Mostrar todos los panels del frame
@@ -42,6 +48,19 @@ public class MainWindow extends JFrame {
         crearTextFields();
         // Mostrar todos los buttons del frame
         crearButtons();
+        // Mostrar scrollpanes
+        crearScrollPanes();
+
+        // Añadir mensajes de prueba
+        chatPanel.addMessage("Hola", true);
+        chatPanel.addMessage("Que tal", false);
+        chatPanel.addMessage("Bien", true);
+
+        // Añadir conversaciones de prueba
+        conversationListPanel.addConversation("conversacion 1");
+        conversationListPanel.addConversation("conversacion 2");
+        conversationListPanel.addConversation("conversacion 3");
+
         setSize(800, 600);
         setTitle("Chats");
         setMinimumSize(new Dimension(800, 600));
@@ -93,6 +112,12 @@ public class MainWindow extends JFrame {
          */
         bottomRightPanel = new BottomRightPanel();
         rightPanel.add(bottomRightPanel, BorderLayout.SOUTH);
+
+        // JPanel que contiene los ConversationPanel
+        conversationListPanel = new ConversationListPanel();
+
+        // JPanel que contiene los mensajes de chat
+        chatPanel = new ChatPanel();
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -141,5 +166,24 @@ public class MainWindow extends JFrame {
         // JButton menú usuario
         userMenuButton = new GenericButton("Menu");
         topRightPanel.add(userMenuButton, BorderLayout.EAST);
+    }
+    /**
+     * Iniciar todos los scrollpanes del JFrame
+     */
+    private void crearScrollPanes() {
+        // JScrollPane conversaciones
+        conversationsScrollPane = new ConversationsScrollPane();
+        leftPanel.add(conversationsScrollPane, BorderLayout.CENTER);
+        // Añadir panel conversaciones
+        conversationsScrollPane.setViewportView(conversationListPanel);
+
+        // JScrollPane chat
+        chatScrollPane = new ChatScrollPane();
+        rightPanel.add(chatScrollPane, BorderLayout.CENTER);
+        // Añadir panel mensajes
+        chatScrollPane.setViewportView(chatPanel);
+
+
+
     }
 }
