@@ -1,5 +1,6 @@
 package controller;
 
+import model.Mensaje;
 import model.User;
 import model.UserModel;
 import model.dao.DatabaseConnection;
@@ -13,6 +14,11 @@ import java.sql.*;
 import static model.UserModel.users;
 
 public class UserController {
+    /**
+     * El usuario que ha iniciado sesión en la aplicación.
+     */
+    public static User usuarioLogeado;
+
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
         /*
@@ -78,6 +84,7 @@ public class UserController {
 
     /**
      * Coge la entity de la DB, la convierte en un objeto y lo mete dentro del array de usuarios
+     * hace que el usuario logeado sea el usuario que se acaba de logear
      * @param userName
      * @param password
      * @return boolean conforme la operacion se ha relaizado con exito
@@ -86,17 +93,35 @@ public class UserController {
         User user= loginInDB(userName, password);
         if(user != null){
             users.add(user);
+            usuarioLogeado = user;
             return true;
         }else{
             System.out.println("Usuario o contraseña incorrecta");
             return false;
         }
     }
-
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     * Este método crea un nuevo objeto User y lo añade a la base de datos.
+     *
+     * @param userName el nombre de usuario del nuevo usuario.
+     * @param firstName el nombre del nuevo usuario.
+     * @param surname el apellido del nuevo usuario.
+     * @param password la contraseña del nuevo usuario.
+     * @return true si el usuario se registró correctamente en la base de datos, false en caso contrario.
+     */
     public static boolean registrarUsuario(String userName,String firstName, String surname, String password){
         return UserDAO.addUserToDB(new User(userName,firstName,surname,password));
     }
-
+    /**
+     * Comprueba si un usuario se registró correctamente en la base de datos.
+     * Este método intenta registrar un nuevo usuario y luego imprime un mensaje basado en el resultado.
+     *
+     * @param userName el nombre de usuario del nuevo usuario.
+     * @param firstName el nombre del nuevo usuario.
+     * @param surname el apellido del nuevo usuario.
+     * @param password la contraseña del nuevo usuario.
+     */
     public static void comprobarRegistro(String userName,String firstName, String surname, String password){
         boolean comprobar = registrarUsuario(userName,firstName,surname,password);
         if(comprobar){
@@ -106,4 +131,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Comprueba si el emisor del mensaje es el usuario que se logeo en la app
+     * @param mensaje
+     * @return true si el emisor del mensaje es el usuario logeado
+     */
+    public static boolean comprobarEmisorMensaje(Mensaje mensaje) {
+        return mensaje.getEmisor().getUserName().equals(usuarioLogeado.getUserName());
+    }
 }
