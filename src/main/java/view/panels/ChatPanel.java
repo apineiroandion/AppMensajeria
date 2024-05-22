@@ -1,10 +1,8 @@
 package view.panels;
 
-import view.resources.Label;
-import view.resources.RoundedBorder;
+import view.resources.MessageTextArea;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -22,15 +20,19 @@ public class ChatPanel extends JPanel {
     public void addMessage(String message, boolean isSent) {
         JPanel messageListPanel = new MessageListPanel(isSent);
 
-        // Label con el contenido del mensaje
-        Label messageLabel = new Label(message,20);
-        messageLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        int messageLength = message.length();
+        if (messageLength >= 25) {
+            messageLength = 25;
+        }
+
+        // JTextArea con el contenido del mensaje
+        JTextArea messageTextArea = new MessageTextArea(message, messageLength, isSent);
 
         // Crear un JPanel personalizado para la burbuja de chat
         JPanel bubblePanel = new BubblePanel(isSent);
 
         // Añade el label al panel de la burbuja
-        bubblePanel.add(messageLabel, BorderLayout.CENTER);
+        bubblePanel.add(messageTextArea, BorderLayout.CENTER);
 
         // Añade la burbuja al panel de mensajes
         messageListPanel.add(bubblePanel);
