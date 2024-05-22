@@ -1,5 +1,6 @@
 package controller;
 
+import model.Conversacion;
 import model.Mensaje;
 import model.User;
 import model.UserModel;
@@ -10,6 +11,7 @@ import view.MainWindow;
 import view.RegisterWindow;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import static model.UserModel.users;
 
@@ -18,6 +20,7 @@ public class UserController {
      * El usuario que ha iniciado sesión en la aplicación.
      */
     public static User usuarioLogeado;
+    public static ArrayList<Conversacion> conversacionesUsuarioLogeado = new ArrayList<>();
 
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
@@ -45,7 +48,7 @@ public class UserController {
         volvadoDatosLogin(userName, password);
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
-            // TODO: Abrir ventana principal
+            openMainWindow();
         }else{
             System.out.println("Usuario no logeado");
         }
@@ -139,4 +142,6 @@ public class UserController {
     public static boolean comprobarEmisorMensaje(Mensaje mensaje) {
         return mensaje.getEmisor().getUserName().equals(usuarioLogeado.getUserName());
     }
+
+
 }

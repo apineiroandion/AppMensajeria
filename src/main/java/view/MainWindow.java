@@ -1,5 +1,6 @@
 package view;
 
+import controller.UserController;
 import view.panels.*;
 import view.resources.*;
 import view.resources.Label;
@@ -124,7 +125,7 @@ public class MainWindow extends JFrame {
      */
     private void crearLabels(){
         // Label UserName
-        userNamelbl = new Label("UserName",15);
+        userNamelbl = new Label(UserController.usuarioLogeado.getUserName(),15);
         bottomLeftPanel.add(userNamelbl);
 
         // Label UserName panel derecho arriba
