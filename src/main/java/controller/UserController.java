@@ -4,7 +4,9 @@ import model.Conversacion;
 import model.Mensaje;
 import model.User;
 import model.UserModel;
+import model.dao.ConversacionDAO;
 import model.dao.DatabaseConnection;
+import model.dao.MensajeDAO;
 import model.dao.UserDAO;
 import view.LoginWindow;
 import view.MainWindow;
@@ -97,6 +99,8 @@ public class UserController {
         if(user != null){
             users.add(user);
             usuarioLogeado = user;
+            conversacionesUsuarioLogeado = getConversacionesUsuarioLogeado(usuarioLogeado);
+            getMesajesForUserConversations(conversacionesUsuarioLogeado);
             return true;
         }else{
             System.out.println("Usuario o contraseña incorrecta");
@@ -143,5 +147,24 @@ public class UserController {
         return mensaje.getEmisor().getUserName().equals(usuarioLogeado.getUserName());
     }
 
+    /**
+     * Cargar en arrayList las conversacoiones del usuarioq ue estan en base de datos
+     * @param user
+     * @return conversaciones del usuario
+     */
+    public static ArrayList<Conversacion> getConversacionesUsuarioLogeado(User user){
+        return ConversacionDAO.getConversacionesByUserFromDB(user);
+    }
 
+    /**
+     * Carga los mensajes de todas las conversaciones del usuario logeado
+     * @param conversaciones
+     * @return true siempre
+     */
+    public static boolean getMesajesForUserConversations(ArrayList<Conversacion> conversaciones){
+        for (Conversacion conversacion : conversaciones) {
+            conversacion.setMensajes(MensajeDAO.getMensajesFromDB(conversacion.getCodigoConversacion()));
+        }
+        return true;
+    }
 }
