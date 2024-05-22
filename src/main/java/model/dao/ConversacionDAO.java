@@ -13,6 +13,30 @@ import static model.UserModel.users;
  */
 public class ConversacionDAO {
     /**
+     * Obtiene una conversación específica de la base de datos utilizando su código de conversación.
+     * Este método consulta la tabla 'tienen' en la base de datos y devuelve un objeto Conversacion.
+     *
+     * @param codigoConversacion el código de la conversación que se va a obtener de la base de datos.
+     * @return Conversacion el objeto Conversacion que representa la conversación obtenida de la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener la conversación de la base de datos.
+     */
+    public static Conversacion getConversacionByCodigoConversacionFromDB(Integer codigoConversacion) {
+        Conversacion conversacion = null;
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM tienen WHERE codigoConversacion = ?")) {
+
+            pstmt.setInt(1, codigoConversacion);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
+            conversacion = new Conversacion(codigoConversacion, participantes);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener conversación de la base de datos", e);
+        }
+        return conversacion;
+    }
+    /**
      * Obtiene todas las conversaciones de un usuario específico de la base de datos.
      * Este método consulta la tabla de conversaciones en la base de datos y devuelve una lista de objetos Conversacion.
      *
