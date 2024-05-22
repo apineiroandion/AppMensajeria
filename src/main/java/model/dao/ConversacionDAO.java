@@ -1,6 +1,7 @@
 package model.dao;
 
 import model.Conversacion;
+import model.Mensaje;
 import model.User;
 
 import java.sql.*;
@@ -30,6 +31,25 @@ public class ConversacionDAO {
 
             ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
             conversacion = new Conversacion(codigoConversacion, participantes);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener conversación de la base de datos", e);
+        }
+        return conversacion;
+    }
+
+    public static Conversacion getConversacionByCodigoConversacionFromDBWithMensajes(Integer codigoConversacion) {
+        Conversacion conversacion = null;
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM tienen WHERE codigoConversacion = ?")) {
+
+            pstmt.setInt(1, codigoConversacion);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
+            ArrayList<Mensaje> mensajes = MensajeDAO.getMensajesFromDB(codigoConversacion);
+            conversacion = new Conversacion(codigoConversacion, participantes);
+            conversacion.setMensajes(mensajes);
 
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener conversación de la base de datos", e);
