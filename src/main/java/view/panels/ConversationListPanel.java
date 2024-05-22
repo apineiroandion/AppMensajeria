@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class ConversationListPanel extends JPanel {
     private List<ConversationPanel> conversationPanels;
-    private ConversationPanel conversationPanel;
     public ConversationListPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(new Color(50,50,50));
