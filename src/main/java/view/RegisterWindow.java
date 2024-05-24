@@ -1,10 +1,13 @@
 package view;
 
+import controller.UserController;
 import view.resources.*;
 import view.resources.Label;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Frame ventana registro
@@ -101,6 +104,15 @@ public class RegisterWindow extends JFrame {
         JButton registerbtn = new GenericButton("Registrarse");
         registerbtn.setBounds(75, 380, 200, 60);
         add(registerbtn);
+
+        //  Add Listener
+        registerbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserController.comprobarRegistro(userName.getText(), firstName.getText(), surName.getText(), password.getText());
+                dispose();
+            }
+        });
 
         // JButton cerrar
         JButton closebtn = new CloseButton();

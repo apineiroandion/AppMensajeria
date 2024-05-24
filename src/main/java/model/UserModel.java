@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -87,25 +88,21 @@ public class UserModel {
      * Crea una nueva conversación con los detalles proporcionados.
      *
      * @param codigoConversacion el código de la conversación
-     * @param user1              el primer usuario en la conversación
-     * @param user2              el segundo usuario en la conversación
+     * @param participantes lista de los participantes en la conversacion
      * @return la conversación creada
      */
-    public static Conversacion newConversacion(String codigoConversacion, User user1, User user2){
-        return new Conversacion(codigoConversacion, user1, user2);
+    public static Conversacion newConversacion(Integer codigoConversacion, ArrayList<User> participantes){
+        return new Conversacion(codigoConversacion, participantes);
     }
 
     /**
      * Crea un nuevo mensaje con los detalles proporcionados.
-     *
      * @param contenido el contenido del mensaje
      * @param emisor    el usuario que envió el mensaje
-     * @param receptor  el usuario que recibió el mensaje
-     * @param fecha     la fecha en la que se envió el mensaje
      * @return el mensaje creado
      */
-    public static Mensaje newMensaje(String contenido, User emisor, User receptor, String fecha){
-        return new Mensaje(contenido, emisor, receptor, fecha);
+    public static Mensaje newMensaje(String contenido, User emisor){
+        return new Mensaje(contenido, emisor);
     }
 
     /**

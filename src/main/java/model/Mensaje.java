@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Mensaje {
     /**
@@ -12,27 +12,20 @@ public class Mensaje {
      */
     private User emisor;
     /**
-     * Usuario que recibió el mensaje
-     */
-    private User receptor;
-    /**
      * Fecha en la que se envió el mensaje
      */
-    private String fecha;
+    private LocalDate fecha;
 
     /**
      * Crea un nuevo mensaje con los detalles proporcionados.
      *
      * @param contenido el contenido del mensaje
      * @param emisor    el usuario que envió el mensaje
-     * @param receptor  el usuario que recibió el mensaje
-     * @param fecha     la fecha en la que se envió el mensaje
      */
-    public Mensaje(String contenido, User emisor, User receptor, String fecha) {
+    public Mensaje(String contenido, User emisor) {
         this.contenido = contenido;
         this.emisor = emisor;
-        this.receptor = receptor;
-        this.fecha = fecha;
+        this.fecha = LocalDate.now();
     }
     /**
      * Devuelve el contenido del mensaje.
@@ -67,27 +60,11 @@ public class Mensaje {
         this.emisor = emisor;
     }
     /**
-     * Devuelve el usuario que recibió el mensaje.
-     *
-     * @return el usuario que recibió el mensaje
-     */
-    public User getReceptor() {
-        return receptor;
-    }
-    /**
-     * Establece el usuario que recibió el mensaje.
-     *
-     * @param receptor el usuario que recibió el mensaje
-     */
-    public void setReceptor(User receptor) {
-        this.receptor = receptor;
-    }
-    /**
      * Devuelve la fecha en la que se envió el mensaje.
      *
      * @return la fecha en la que se envió el mensaje
      */
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
     /**
@@ -95,7 +72,7 @@ public class Mensaje {
      *
      * @param fecha la fecha en la que se envió el mensaje
      */
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 }

@@ -2,10 +2,7 @@ package model.dao;
 
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +10,35 @@ import java.util.ArrayList;
  * Esta clase proporciona métodos para obtener usuarios de la base de datos y para añadir nuevos usuarios a la base de datos.
  */
 public class UserDAO {
+
+    /**
+     * Obtiene todos los usuarios de una conversación específica de la base de datos.
+     * Este método consulta la tabla 'tienen' en la base de datos y devuelve una lista de objetos User.
+     *
+     * @param codigoConversacion el código de la conversación de la que se van a obtener los usuarios.
+     * @return ArrayList<User> una lista de todos los usuarios en la conversación especificada en la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener los usuarios de la conversación de la base de datos.
+     */
+    public static ArrayList<User> getUserByConversationFromDB(Integer codigoConversacion){
+        ArrayList<User> usersByC = new ArrayList<>();
+        try (Connection con = DatabaseConnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM tienen WHERE codigoConversacion = ?")) {
+
+            while (rs.next()) {
+                String userName = rs.getString("userName");
+                String firstName = rs.getString("firstName");
+                String surName = rs.getString("surName");
+                String password = rs.getString("password");
+                User user = new User(userName, firstName, surName, password);
+                usersByC.add(user);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener usuarios de la base de datos", e);
+        }
+        return usersByC;
+    }
+
     /**
      * Obtiene todos los usuarios de la base de datos.
      * Este método consulta la tabla de usuarios en la base de datos y devuelve una lista de objetos User.
@@ -47,7 +73,7 @@ public class UserDAO {
      * @param user el objeto User que representa al usuario que se va a añadir a la base de datos.
      * @throws RuntimeException si ocurre un error al añadir el usuario a la base de datos.
      */
-    public static void addUserToDB(User user){
+    public static boolean addUserToDB(User user){
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement("INSERT INTO users (userName, firstName, surName, password) VALUES (?, ?, ?, ?)")) {
 
@@ -56,6 +82,7 @@ public class UserDAO {
             pstmt.setString(3, user.getSurName());
             pstmt.setString(4, user.getPassword());
             pstmt.executeUpdate();
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException("Error al añadir usuario a la base de datos", e);
@@ -102,4 +129,40 @@ public class UserDAO {
             throw new RuntimeException("Error al actualizar usuario en la base de datos", e);
         }
     }
+
+    /**
+     * Borra todos los usuarios de la base de datos
+     */
+    public static void deleteAllUsersFromDB(){
+        try (Connection con = DatabaseConnection.getConnection();
+        PreparedStatement pstmt = con.prepareStatement("DELETE FROM users")){
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al borrar usuarios");
+        }
+    }
+
+    public static User getUserForLogin(String userName, String password) {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE userName = ? AND password = ?")) {
+
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String dbUserName = rs.getString("userName");
+                    String firstName = rs.getString("firstName");
+                    String surName = rs.getString("surName");
+                    String dbPassword = rs.getString("password");
+
+                    return new User(dbUserName, firstName, surName, dbPassword);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener usuarios de la base de datos", e);
+        }
+        return null;
+    }
+
 }
