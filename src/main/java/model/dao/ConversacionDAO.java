@@ -153,7 +153,7 @@ public class ConversacionDAO {
      * @param userName2 El nombre de usuario del segundo participante.
      * @return true si la conversación se insertó correctamente, false en caso contrario.
      */
-    private static boolean insertarConversacion(String userName1, String userName2) {
+    public static boolean insertarConversacion(String userName1, String userName2) {
         String insertConversationSQL = "INSERT INTO conversacion DEFAULT VALUES RETURNING codigoConversacion";
         String insertUserConversationSQL = "INSERT INTO tienen (codigoConversacion, userName) VALUES (?, ?)";
 
@@ -186,6 +186,31 @@ public class ConversacionDAO {
             e.printStackTrace(); // Imprimir la excepción para el registro de errores
             return false; // Si ocurrió un error, devolvemos false
         }
+    }
+
+    /**
+     * Metodo que obtiene el codigo de una conversacion de la base de datos, pasandole los dos usuarios que esta en la tabla tienen
+     * @param userName1
+     * @param userName2
+     * @return conversationId
+     */
+    public static Integer getConversationId(String userName1, String userName2) {
+        Integer conversationId = null;
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement("SELECT codigoConversacion FROM tienen WHERE userName = ? INTERSECT SELECT codigoConversacion FROM tienen WHERE userName = ?")) {
+
+            pstmt.setString(1, userName1);
+            pstmt.setString(2, userName2);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                conversationId = rs.getInt("codigoConversacion");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener el codigo de la conversacion de la base de datos", e);
+        }
+        return conversationId;
     }
 
 

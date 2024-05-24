@@ -11,6 +11,7 @@ import model.dao.UserDAO;
 import view.LoginWindow;
 import view.MainWindow;
 import view.RegisterWindow;
+import view.SearchWindow;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -165,6 +166,33 @@ public class UserController {
         for (Conversacion conversacion : conversaciones) {
             conversacion.setMensajes(MensajeDAO.getMensajesFromDB(conversacion.getCodigoConversacion()));
         }
+        return true;
+    }
+
+    /**
+     * open searchwindow
+     */
+    public static void openSearchWindow() {
+        SearchWindow searchWindow = new SearchWindow(UserDAO.getUserFromDB());
+        searchWindow.setVisible(true);
+    }
+    /**
+     * Envia un mensaje a una conversacion
+     */
+    public static boolean enviarMensaje(String textoMensaje, Conversacion conversacion) {
+        Mensaje mensaje = new Mensaje(textoMensaje, usuarioLogeado);
+        MensajeDAO.insertMensajeIntoDB(mensaje, conversacion);
+        conversacion.getMensajes().add(mensaje);
+        return true;
+    }
+    /**
+     * Crear una nueva conversacion con un mensaje inicial
+     */
+    public static boolean crearConversacion(String textoMensaje, User destinatario) {
+        ConversacionDAO.insertarConversacion(usuarioLogeado.getUserName(), destinatario.getUserName());
+        Conversacion conversacion = ConversacionDAO.getConversacionByCodigoConversacionFromDBWithMensajes(ConversacionDAO.getConversationId(usuarioLogeado.getUserName(), destinatario.getUserName()));
+        enviarMensaje(textoMensaje, conversacion);
+        conversacionesUsuarioLogeado.add(conversacion);
         return true;
     }
 }
