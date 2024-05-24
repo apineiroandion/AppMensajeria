@@ -51,10 +51,6 @@ public class MainWindow extends JFrame {
         // Mostrar scrollpanes
         crearScrollPanes();
 
-        // Añadir mensajes de prueba
-        chatPanel.addMessage("Hola", true);
-        chatPanel.addMessage("Que tal", false);
-        chatPanel.addMessage("Bien", true);
 
         // Añadir conversaciones de prueba
         conversationListPanel.addConversation("conversacion 1");
@@ -94,30 +90,15 @@ public class MainWindow extends JFrame {
          * Panel derecho
          * Chat
          */
-        rightPanel = new RightPanel();
+        rightPanel = new RightPanel("defaultUser");
         add(rightPanel, BorderLayout.CENTER);
 
-        /**
-         * topRightPanel GridBagLayout
-         * Panel superior derecho
-         * Nombre usuario chat
-         */
-        topRightPanel = new TopRightPanel();
-        rightPanel.add(topRightPanel, BorderLayout.NORTH);
 
-        /**
-         * bottomRightPanel GridBagLayout
-         * Panel inferior derecho
-         * Textfield y botón enviar
-         */
-        bottomRightPanel = new BottomRightPanel();
-        rightPanel.add(bottomRightPanel, BorderLayout.SOUTH);
 
         // JPanel que contiene los ConversationPanel
         conversationListPanel = new ConversationListPanel();
 
-        // JPanel que contiene los mensajes de chat
-        chatPanel = new ChatPanel();
+
     }
     /**
      * Iniciar todos los labels del JFrame
@@ -127,45 +108,19 @@ public class MainWindow extends JFrame {
         userNamelbl = new Label("UserName",15);
         bottomLeftPanel.add(userNamelbl);
 
-        // Label UserName panel derecho arriba
-        userNameTopRightlbl = new Label("UserName",20);
-        // Añadir un borde a la izquierda para que la label no esté pegada al borde
-        userNameTopRightlbl.setBorder(new EmptyBorder(0, 10, 0, 0));
-        topRightPanel.add(userNameTopRightlbl, BorderLayout.WEST);
+
     }
     /**
      * Iniciar todos los textfields del JFrame
      */
     private void crearTextFields() {
-        // JTextField chatmsg
-        chatmsg = new GenericTextField(100,50,Color.BLACK);
-        chatmsg.setPreferredSize(new Dimension(chatmsg.getWidth(), 50));
-        gbcrightBottomPanel = new GridBagConstraints();
-        gbcrightBottomPanel.gridx = 0;
-        gbcrightBottomPanel.gridy = 0;
-        gbcrightBottomPanel.weightx = 0.8;
-        gbcrightBottomPanel.weighty = 1;
-        gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
-        bottomRightPanel.add(chatmsg,gbcrightBottomPanel);
+
     }
     /**
      * Iniciar todos los buttons del JFrame
      */
     private void crearButtons() {
-        // JButton enviar
-        sendButton = new GenericButton("Enviar");
-        sendButton.setPreferredSize(new Dimension(sendButton.getWidth(),50));
-        gbcrightBottomPanel.gridx = 1;
-        gbcrightBottomPanel.gridy = 0;
-        gbcrightBottomPanel.weightx = 0.2;
-        gbcrightBottomPanel.weighty = 1;
-        gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
-        bottomRightPanel.add(sendButton,gbcrightBottomPanel);
 
-        // TODO: ponerle un simbolo de menú
-        // JButton menú usuario
-        userMenuButton = new GenericButton("Menu");
-        topRightPanel.add(userMenuButton, BorderLayout.EAST);
     }
     /**
      * Iniciar todos los scrollpanes del JFrame
@@ -177,13 +132,7 @@ public class MainWindow extends JFrame {
         // Añadir panel conversaciones
         conversationsScrollPane.setViewportView(conversationListPanel);
 
-        // JScrollPane chat
-        chatScrollPane = new ChatScrollPane();
-        rightPanel.add(chatScrollPane, BorderLayout.CENTER);
-        // Añadir panel mensajes
-        chatScrollPane.setViewportView(chatPanel);
-
-
 
     }
+
 }

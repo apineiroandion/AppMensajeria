@@ -17,7 +17,7 @@ public class ChatPanel extends JPanel {
         filler = new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
 
-    public void addMessage(String message, boolean isSent) {
+    public void addMessage(String message, boolean isSent, JScrollPane chatScrollPane) {
         JPanel messageListPanel = new MessageListPanel(isSent);
 
         int messageLength = message.length();
@@ -44,5 +44,11 @@ public class ChatPanel extends JPanel {
         this.add(filler);
 
         this.revalidate();
+
+        // Desplaza el ChatScrollPane hacia abajo
+        SwingUtilities.invokeLater(() -> { // Usar invokeLater para que se ejecute después de que se haya añadido el mensaje
+            JScrollBar verticalScrollBar = chatScrollPane.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        });
     }
 }

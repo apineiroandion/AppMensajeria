@@ -1,5 +1,6 @@
 package view.panels;
 
+import view.MainWindow;
 import view.resources.Label;
 
 import javax.swing.*;
@@ -36,7 +37,28 @@ public class ConversationPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Se ha hecho clic en el panel de conversación de " + usuario);
                 setBackground(new Color(40,40,40));
-                parentPanel.changeColorOthers(ConversationPanel.this); // Cambiar color de los otros paneles
+                parentPanel.changeColorOthers(ConversationPanel.this); // Deseleccionar otros ConversationPanel
+
+                // Create a new RightPanel
+                RightPanel rightPanel = new RightPanel(usuario);
+
+                // Get the MainWindow instance
+                MainWindow mainWindow = (MainWindow) SwingUtilities.getWindowAncestor(ConversationPanel.this);
+
+                // Remove the old RightPanel
+                Component[] components = mainWindow.getContentPane().getComponents();
+                for (Component component : components) {
+                    if (component instanceof RightPanel) {
+                        mainWindow.getContentPane().remove(component);
+                    }
+                }
+
+                // Add the new RightPanel to the MainWindow
+                mainWindow.getContentPane().add(rightPanel, BorderLayout.CENTER);
+
+                // Refresh the MainWindow
+                mainWindow.getContentPane().validate();
+                mainWindow.getContentPane().repaint();
             }
         });
     }
