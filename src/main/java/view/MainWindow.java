@@ -109,6 +109,11 @@ public class MainWindow extends JFrame {
         userNamelbl = new Label(UserController.usuarioLogeado.getUserName(),15);
         bottomLeftPanel.add(userNamelbl);
 
+        GenericButton userMenuButton = new GenericButton("añadir");
+        bottomLeftPanel.add(userMenuButton);
+        userMenuButton.addActionListener(e -> {
+            UserController.openSearchWindow();
+        });
 
     }
     /**

@@ -19,25 +19,43 @@ public class UserDAO {
      * @return ArrayList<User> una lista de todos los usuarios en la conversación especificada en la base de datos.
      * @throws RuntimeException si ocurre un error al obtener los usuarios de la conversación de la base de datos.
      */
-    public static ArrayList<User> getUserByConversationFromDB(Integer codigoConversacion){
+    public static ArrayList<User> getUserByConversationFromDB(Integer codigoConversacion) {
         ArrayList<User> usersByC = new ArrayList<>();
-        try (Connection con = DatabaseConnection.getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM tienen WHERE codigoConversacion = ?")) {
+        String queryTienen = "SELECT userName FROM tienen WHERE codigoConversacion = ?";
+        String queryUsuarios = "SELECT * FROM users WHERE userName = ?";
 
-            while (rs.next()) {
-                String userName = rs.getString("userName");
-                String firstName = rs.getString("firstName");
-                String surName = rs.getString("surName");
-                String password = rs.getString("password");
-                User user = new User(userName, firstName, surName, password);
-                usersByC.add(user);
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmtTienen = con.prepareStatement(queryTienen)) {
+
+            pstmtTienen.setInt(1, codigoConversacion);
+
+            try (ResultSet rsTienen = pstmtTienen.executeQuery()) {
+                while (rsTienen.next()) {
+                    String userName = rsTienen.getString("userName");
+
+                    // Ahora obtenemos los detalles del usuario desde la tabla usuarios
+                    try (PreparedStatement pstmtUsuarios = con.prepareStatement(queryUsuarios)) {
+                        pstmtUsuarios.setString(1, userName);
+
+                        try (ResultSet rsUsuarios = pstmtUsuarios.executeQuery()) {
+                            if (rsUsuarios.next()) {
+                                String firstName = rsUsuarios.getString("firstName");
+                                String surName = rsUsuarios.getString("surName");
+                                String password = rsUsuarios.getString("password");
+                                User user = new User(userName, firstName, surName, password);
+                                usersByC.add(user);
+                            }
+                        }
+                    }
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error al obtener usuarios de la base de datos", e);
         }
+
         return usersByC;
     }
+
 
     /**
      * Obtiene todos los usuarios de la base de datos.
