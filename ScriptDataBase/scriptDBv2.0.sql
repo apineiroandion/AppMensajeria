@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS mensaje;
+DROP TABLE IF EXISTS tienen;
+DROP TABLE IF EXISTS conversacion;
+DROP TABLE IF EXISTS users;
+
+
 CREATE TABLE users (
                        userName VARCHAR(20) PRIMARY KEY,
                        firstName VARCHAR(20),
@@ -23,6 +29,7 @@ CREATE TABLE mensaje (
                          fecha DATE,
                          contenido VARCHAR(250),
                          codigoConversacion INT,
+                         leido BOOLEAN DEFAULT FALSE,
                          FOREIGN KEY (userName) REFERENCES users(userName),
                          FOREIGN KEY (codigoConversacion) REFERENCES conversacion(codigoConversacion)
 );
