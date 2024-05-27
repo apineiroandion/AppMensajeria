@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Clase de pruebas unitarias para la clase UserModel.
+ */
 public class UserModelTest {
     private ArrayList<User> users;
 
