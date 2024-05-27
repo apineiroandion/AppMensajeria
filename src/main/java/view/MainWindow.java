@@ -1,6 +1,9 @@
 package view;
 
 import controller.UserController;
+import model.Conversacion;
+import model.User;
+import model.dao.ConversacionDAO;
 import view.panels.*;
 import view.resources.*;
 import view.resources.Label;
@@ -8,6 +11,7 @@ import view.resources.Label;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Frame ventana principal
@@ -54,9 +58,12 @@ public class MainWindow extends JFrame {
 
 
         // Añadir conversaciones de prueba
-        conversationListPanel.addConversation("conversacion 1");
+        /*conversationListPanel.addConversation("conversacion 1");
         conversationListPanel.addConversation("conversacion 2");
-        conversationListPanel.addConversation("conversacion 3");
+        conversationListPanel.addConversation("conversacion 3");*/
+
+        addConversationPanel();
+
 
         setSize(800, 600);
         setTitle("Chats");
@@ -64,6 +71,59 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public void addConversationPanel() {
+        // Obtener las conversaciones del usuario logeado
+        ArrayList<Conversacion> conversaciones = UserController.getConversacionesUsuarioLogeado(UserController.usuarioLogeado);
+        System.out.println("Conversaciones: " + conversaciones);
+        System.out.println("Conversaciones: " + conversaciones.size());
+        System.out.println("Conversaciones: " + conversaciones.get(0).getParticipantes());
+
+        // Verificar que hay conversaciones
+        if (conversaciones == null || conversaciones.isEmpty()) {
+            System.out.println("No hay conversaciones para el usuario logeado.");
+            return;
+        }
+
+        // Imprimir los participantes de la primera conversación para depuración
+        System.out.println(conversaciones.get(0).getParticipantes());
+
+        // Iterar sobre las conversaciones
+        for (Conversacion conversacion : conversaciones) {
+            // Obtener los participantes de la conversación
+            ArrayList<User> participantes = conversacion.getParticipantes();
+
+            // Verificar que hay participantes
+            if (participantes == null || participantes.isEmpty()) {
+                System.out.println("Conversación sin participantes.");
+                continue;
+            }
+
+            // Obtener el nombre de la conversación
+            String conversationName = getConversationName(participantes);
+
+            // Verificar que el nombre de la conversación no es nulo
+            if (conversationName != null) {
+                // Agregar la conversación al panel
+                conversationListPanel.addConversation(conversationName);
+            } else {
+                System.out.println("No se encontró un nombre de conversación válido para la conversación con participantes: " + participantes);
+            }
+        }
+
+        // Asegurarse de actualizar el UI
+        conversationListPanel.revalidate();
+        conversationListPanel.repaint();
+    }
+
+    public String getConversationName(ArrayList<User> users) {
+        for (User user : users) {
+            if (!user.getUserName().equals(UserController.usuarioLogeado.getUserName())) {
+                return user.getUserName();
+            }
+        }
+        return null; // Devuelve null si todos los usuarios son el usuario logeado
     }
 
     /**
