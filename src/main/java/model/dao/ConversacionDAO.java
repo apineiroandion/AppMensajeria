@@ -222,5 +222,28 @@ public class ConversacionDAO {
         return conversationId;
     }
 
+    /**
+     * Metodo que comprueba si hay algun mensaje no leido en las conversaciones de un usuario
+     * @param userName
+     * @return true si hay mensajes no leidos, false si no hay mensajes no leidos
+     * @throws RuntimeException si ocurre un error al obtener los datos de la base de datos.
+     * @throws SQLException si ocurre un error al obtener los datos de la base de datos.
+     */
+    public static boolean hayMensajesNoLeidos(String userName) {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(
+                     "SELECT * FROM mensaje WHERE leido = false AND codigoConversacion IN (SELECT codigoConversacion FROM tienen WHERE userName = ?)"
+             )) {
+
+            pstmt.setString(1, userName);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener los datos de la base de datos", e);
+        }
+    }
+
 
 }
