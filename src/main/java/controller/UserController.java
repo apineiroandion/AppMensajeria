@@ -54,6 +54,9 @@ public class UserController {
         volvadoDatosLogin(userName, password);
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
+            //Inizia el thread que comprueba si hay mensajes nuevos
+            VerificarMensajesThread vmt = new VerificarMensajesThread();
+            vmt.iniciarThread();
             openMainWindow();
         }else{
             System.out.println("Usuario no logeado");
