@@ -103,10 +103,13 @@ public class MainWindow extends JFrame {
             // Obtener el nombre de la conversación
             String conversationName = getConversationName(participantes);
 
+            // Obtener el ID de la conversación
+            int ID = conversacion.getCodigoConversacion();
+
             // Verificar que el nombre de la conversación no es nulo
             if (conversationName != null) {
                 // Agregar la conversación al panel
-                conversationListPanel.addConversation(conversationName);
+                conversationListPanel.addConversation(conversationName, ID);
             } else {
                 System.out.println("No se encontró un nombre de conversación válido para la conversación con participantes: " + participantes);
             }
@@ -151,8 +154,8 @@ public class MainWindow extends JFrame {
          * Panel derecho
          * Chat
          */
-        rightPanel = new RightPanel("defaultUser");
-        add(rightPanel, BorderLayout.CENTER);
+/*        rightPanel = new RightPanel("defaultUser", 1);
+        add(rightPanel, BorderLayout.CENTER);*/
 
 
 
