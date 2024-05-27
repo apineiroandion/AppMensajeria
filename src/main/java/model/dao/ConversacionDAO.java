@@ -38,6 +38,14 @@ public class ConversacionDAO {
         return conversacion;
     }
 
+    /**
+     * Obtiene una conversación específica de la base de datos utilizando su código de conversación.
+     * Este método consulta la tabla 'tienen' en la base de datos y devuelve un objeto Conversacion.
+     *
+     * @param codigoConversacion el código de la conversación que se va a obtener de la base de datos.
+     * @return Conversacion el objeto Conversacion que representa la conversación obtenida de la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener la conversación de la base de datos.
+     */
     public static Conversacion getConversacionByCodigoConversacionFromDBWithMensajes(Integer codigoConversacion) {
         Conversacion conversacion = null;
         try (Connection con = DatabaseConnection.getConnection();
