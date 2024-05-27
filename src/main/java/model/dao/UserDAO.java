@@ -160,6 +160,15 @@ public class UserDAO {
         }
     }
 
+    /**
+     * Obtiene un usuario de la base de datos para el inicio de sesión.
+     * Este método consulta la tabla de usuarios en la base de datos y devuelve un objeto User si el nombre de usuario y la contraseña coinciden.
+     *
+     * @param userName el nombre de usuario del usuario que se va a obtener de la base de datos.
+     * @param password la contraseña del usuario que se va a obtener de la base de datos.
+     * @return User el objeto User que representa al usuario obtenido de la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener el usuario de la base de datos.
+     */
     public static User getUserForLogin(String userName, String password) {
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE userName = ? AND password = ?")) {
