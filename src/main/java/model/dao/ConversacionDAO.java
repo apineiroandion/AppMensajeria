@@ -81,9 +81,10 @@ public class ConversacionDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Integer codigoConversacion = rs.getInt("codigoConversacion");
+                Integer codigoConversacion = rs.getInt("codigoconversacion");
                 ArrayList<User> participantes = UserDAO.getUserByConversationFromDB(codigoConversacion);
                 Conversacion conversacion = new Conversacion(codigoConversacion, participantes);
+                conversacion.setParticipantes(UserDAO.getUserByConversationFromDB(codigoConversacion));
                 conversaciones.add(conversacion);
             }
         } catch (Exception e) {
@@ -129,7 +130,7 @@ public class ConversacionDAO {
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(selectSQL)) {
             while (rs.next()) {
-                Integer codigoConversacion = rs.getInt("codigoConversacion");
+                Integer codigoConversacion = rs.getInt("codigoconversacion");
                 System.out.println(codigoConversacion);
             }
         } catch (SQLException e) {
@@ -212,7 +213,7 @@ public class ConversacionDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                conversationId = rs.getInt("codigoConversacion");
+                conversationId = rs.getInt("codigoconversacion");
             }
 
         } catch (Exception e) {

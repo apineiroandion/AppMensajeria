@@ -64,10 +64,10 @@ public class MensajeDAO {
             pstmt.setInt(1, conversacionId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    String userName = rs.getString("userName");
+                    String userName = rs.getString("username");
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
                     String contenido = rs.getString("contenido");
-                    Integer codigoConversacion = rs.getInt("codigoConversacion");
+                    Integer codigoConversacion = rs.getInt("codigoconversacion");
 
                     User userAux = null;
                     for (User user : users) {

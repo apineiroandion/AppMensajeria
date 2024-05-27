@@ -26,7 +26,7 @@ public class Conversacion {
      */
     public Conversacion(Integer codigoConversacion, ArrayList<User> participantes) {
         this.codigoConversacion = codigoConversacion;
-        participantes = new ArrayList<>();
+        this.participantes = new ArrayList<>();
         this.mensajes = new ArrayList<>();
     }
     /**

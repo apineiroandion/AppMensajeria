@@ -23,10 +23,12 @@ public class UserController {
      * El usuario que ha iniciado sesión en la aplicación.
      */
     public static User usuarioLogeado;
-    public static ArrayList<Conversacion> conversacionesUsuarioLogeado = new ArrayList<>();
+    public static ArrayList<Conversacion> conversacionesUsuarioLogeado;
 
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
+        // Cargar los usuarios de la base de datos
+        users = UserDAO.getUserFromDB();
         /*
         User user1 = new User("user1", "User", "One", "password");
         users.add(user1);
@@ -89,6 +91,29 @@ public class UserController {
     }
 
     /**
+     * Coprobar que el usuario esta en el array de usuarios
+     * @param userName
+     * @param password
+     * @return true si el usuario esta en el array de usuarios
+     */
+    public static boolean comprobarLogin(String userName, String password) {
+        return UserModel.loggin(userName, password);
+    }
+    /**
+     * Obtener el usuario loggeado del array de usuarios
+     * @param userName
+     * @return el usuario logeado
+     */
+    public static User getUsuarioLogeado(String userName, String password) {
+        for (User user : users) {
+            if (comprobarLogin(userName, password)) {
+                System.out.println("usuario correcto");
+                return user;
+            }
+        }
+        return null;
+    }
+    /**
      * Coge la entity de la DB, la convierte en un objeto y lo mete dentro del array de usuarios
      * hace que el usuario logeado sea el usuario que se acaba de logear
      * @param userName
@@ -96,12 +121,14 @@ public class UserController {
      * @return boolean conforme la operacion se ha relaizado con exito
      */
     public static boolean volvadoDatosLogin(String userName,String password){
-        User user= loginInDB(userName, password);
-        if(user != null){
-            users.add(user);
+        User userComprobar = loginInDB(userName,password);
+        if(userComprobar != null){
+            User user = getUsuarioLogeado(userName,password);
             usuarioLogeado = user;
             conversacionesUsuarioLogeado = getConversacionesUsuarioLogeado(usuarioLogeado);
             getMesajesForUserConversations(conversacionesUsuarioLogeado);
+            conversacionesUsuarioLogeado = ConversacionDAO.getConversacionesByUserFromDB(usuarioLogeado);
+            System.out.println("correcto");
             return true;
         }else{
             System.out.println("Usuario o contraseña incorrecta");

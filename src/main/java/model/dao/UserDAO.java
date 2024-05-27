@@ -1,5 +1,6 @@
 package model.dao;
 
+import model.Conversacion;
 import model.User;
 
 import java.sql.*;
@@ -31,7 +32,7 @@ public class UserDAO {
 
             try (ResultSet rsTienen = pstmtTienen.executeQuery()) {
                 while (rsTienen.next()) {
-                    String userName = rsTienen.getString("userName");
+                    String userName = rsTienen.getString("username");
 
                     // Ahora obtenemos los detalles del usuario desde la tabla usuarios
                     try (PreparedStatement pstmtUsuarios = con.prepareStatement(queryUsuarios)) {
@@ -39,8 +40,8 @@ public class UserDAO {
 
                         try (ResultSet rsUsuarios = pstmtUsuarios.executeQuery()) {
                             if (rsUsuarios.next()) {
-                                String firstName = rsUsuarios.getString("firstName");
-                                String surName = rsUsuarios.getString("surName");
+                                String firstName = rsUsuarios.getString("firstname");
+                                String surName = rsUsuarios.getString("surname");
                                 String password = rsUsuarios.getString("password");
                                 User user = new User(userName, firstName, surName, password);
                                 usersByC.add(user);
@@ -71,11 +72,12 @@ public class UserDAO {
              ResultSet rs = stmt.executeQuery("SELECT * FROM users")) {
 
             while (rs.next()) {
-                String userName = rs.getString("userName");
-                String firstName = rs.getString("firstName");
-                String surName = rs.getString("surName");
+                String userName = rs.getString("username");
+                String firstName = rs.getString("firstname");
+                String surName = rs.getString("surname");
                 String password = rs.getString("password");
                 User user = new User(userName, firstName, surName, password);
+                user.setConversaciones(ConversacionDAO.getConversacionesByUserFromDB(user));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -178,9 +180,9 @@ public class UserDAO {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    String dbUserName = rs.getString("userName");
-                    String firstName = rs.getString("firstName");
-                    String surName = rs.getString("surName");
+                    String dbUserName = rs.getString("username");
+                    String firstName = rs.getString("firstname");
+                    String surName = rs.getString("surname");
                     String dbPassword = rs.getString("password");
 
                     return new User(dbUserName, firstName, surName, dbPassword);

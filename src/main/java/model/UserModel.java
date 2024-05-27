@@ -1,5 +1,7 @@
 package model;
 
+import model.dao.UserDAO;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -131,5 +133,11 @@ public class UserModel {
      */
     public static void setUsers(ArrayList<User> users) {
         UserModel.users = users;
+    }
+    /**
+     * Vuelca todos los usuarios de la base de dtos en el arraylist de usuarios
+     */
+    public static void cargarUsuarios() {
+        users = UserDAO.getUserFromDB();
     }
 }
