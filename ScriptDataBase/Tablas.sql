@@ -4,7 +4,7 @@ drop table if exists usuario cascade;
 
 create table usuario
 (
-    idu primary key,
+    idu serial primary key,
     userName  varchar(12),
     firstName varchar(22),
     surname   varchar(50),
@@ -13,7 +13,7 @@ create table usuario
 
 create table conversacion
 (
-    idc primary key,
+    idc serial primary key,
     idu1 int,
     idu2 int,
     foreign key (idu1) references usuario (idu),
