@@ -11,8 +11,20 @@ import java.util.ArrayList;
 
 import static model.UserModel.*;
 
-
+/**
+ * Clase de acceso a datos para los mensajes.
+ * Esta clase proporciona métodos para interactuar con la tabla de mensajes en la base de datos.
+ */
 public class MensajeDAO {
+    /**
+     * Inserta un nuevo mensaje en la base de datos.
+     * Este método crea un nuevo registro en la tabla de mensajes en la base de datos.
+     *
+     * @param mensaje el mensaje que se va a insertar en la base de datos.
+     * @param conversacion la conversación a la que pertenece el mensaje.
+     * @return true si el mensaje se insertó correctamente en la base de datos, false en caso contrario.
+     * @throws RuntimeException si ocurre un error al insertar el mensaje en la base de datos.
+     */
     public static boolean insertMensajeIntoDB(Mensaje mensaje, Conversacion conversacion) {
         String query = "INSERT INTO mensaje (userName, fecha, contenido, codigoConversacion) VALUES (?, ?, ?, ?)";
 
@@ -34,6 +46,14 @@ public class MensajeDAO {
             throw new RuntimeException("Error al enviar Mensaje", e);
         }
     }
+    /**
+     * Obtiene los mensajes de una conversación específica de la base de datos.
+     * Este método consulta la tabla de mensajes en la base de datos y devuelve una lista de mensajes.
+     *
+     * @param conversacionId el ID de la conversación para la que se van a obtener los mensajes.
+     * @return ArrayList<Mensaje> la lista de mensajes obtenidos de la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener los mensajes de la base de datos.
+     */
     public static ArrayList<Mensaje> getMensajesFromDB(Integer conversacionId) {
         ArrayList<Mensaje> mensajes = new ArrayList<>();
         String query = "SELECT * FROM mensaje WHERE codigoConversacion = ?";
