@@ -11,44 +11,60 @@ import java.util.ArrayList;
 
 import static model.UserModel.*;
 
+
 public class MensajeDAO {
     public static boolean insertMensajeIntoDB(Mensaje mensaje, Conversacion conversacion) {
+        String query = "INSERT INTO mensaje (userName, fecha, contenido, codigoConversacion) VALUES (?, ?, ?, ?)";
+
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = con.prepareStatement("INSERT INTO mensaje (userName, fecha, contenido, codigoConversacion) VALUES (?, ?, ?, ?)")) {
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            // Configurar parámetros
             pstmt.setString(1, mensaje.getEmisor().getUserName());
-            pstmt.setString(2,mensaje.getFecha().toString());
+            pstmt.setDate(2, java.sql.Date.valueOf(mensaje.getFecha()));
             pstmt.setString(3, mensaje.getContenido());
             pstmt.setInt(4, conversacion.getCodigoConversacion());
+
+            // Ejecutar la actualización
             pstmt.executeUpdate();
             return true;
-        } catch (Exception e) {
-            throw new RuntimeException("Error al enviar Mensaje");
+        } catch (SQLException e) {
+            // Imprimir el mensaje de error completo para depuración
+            e.printStackTrace();
+            throw new RuntimeException("Error al enviar Mensaje", e);
         }
     }
     public static ArrayList<Mensaje> getMensajesFromDB(Integer conversacionId) {
         ArrayList<Mensaje> mensajes = new ArrayList<>();
-        try (Connection con = DatabaseConnection.getConnection();
-            Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM mensaje WHERE codigoConversacion = ?")){
+        String query = "SELECT * FROM mensaje WHERE codigoConversacion = ?";
 
-            while (rs.next()) {
-                String userName = rs.getString("userName");
-                LocalDate fecha = rs.getDate("fecha").toLocalDate();
-                String contenido = rs.getString("contenido");
-                Integer codigoConversacion = rs.getInt("codigoConversacion");
-                ArrayList<User> usersAux = users;
-                User userAux = null;
-                for (int i = 0; i < usersAux.size(); i++) {
-                    if (userName.equals(usersAux.get(i).getUserName())) {
-                        userAux = usersAux.get(i);
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setInt(1, conversacionId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String userName = rs.getString("userName");
+                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                    String contenido = rs.getString("contenido");
+                    Integer codigoConversacion = rs.getInt("codigoConversacion");
+
+                    User userAux = null;
+                    for (User user : users) {
+                        if (userName.equals(user.getUserName())) {
+                            userAux = user;
+                            break;
+                        }
                     }
+
+                    Mensaje mensaje = new Mensaje(contenido, userAux);
+                    mensajes.add(mensaje);
                 }
-                Mensaje mensaje = new Mensaje(contenido, userAux);
-                mensajes.add(mensaje);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al consultar las mensajes de la conversacion");
+            throw new RuntimeException("Error al consultar los mensajes de la conversación", e);
         }
         return mensajes;
     }
+
 }
