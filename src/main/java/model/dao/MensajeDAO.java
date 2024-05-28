@@ -147,4 +147,30 @@ public class MensajeDAO {
         }
     }
 
+    /**
+     * Metodo que devuelve una lista de id de conversaciones donde hay mensajes sin leer y que el usuario que los envia
+     * sea distinto al usuario logeado
+     * @param userName
+     * @return lista de id de conversaciones
+     */
+    public static ArrayList<Integer> getConversacionesConMensajesSinLeer(String userName) {
+        ArrayList<Integer> conversaciones = new ArrayList<>();
+        String query = "SELECT codigoConversacion FROM mensaje WHERE userName != ? AND leido = false";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setString(1, userName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Integer codigoConversacion = rs.getInt("codigoConversacion");
+                    conversaciones.add(codigoConversacion);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al consultar las conversaciones con mensajes sin leer", e);
+        }
+        return conversaciones;
+    }
+
 }

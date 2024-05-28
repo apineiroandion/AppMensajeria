@@ -1,6 +1,10 @@
 package controller;
 
 import model.dao.ConversacionDAO;
+import model.dao.MensajeDAO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Esta clase es un thread que comprueba cada 2 segundos si hay mensajes nuevos en la base de datos
@@ -15,11 +19,14 @@ public class VerificarMensajesThread extends Thread{
         while (true) {
             try {
                 if (ConversacionDAO.hayMensajesNoLeidos(UserController.usuarioLogeado.getUserName())) {
-                    if(sustituirConversacionesUsuarioLogeado()){
-                        enviarNotificacion();
+                    ArrayList<Integer> conversacionesConMensajesNoLeidos = MensajeDAO.getConversacionesConMensajesSinLeer(UserController.usuarioLogeado.getUserName());
+                    for (Integer conversacionId : conversacionesConMensajesNoLeidos) {
+                        if(sustituirConversacionesUsuarioLogeado()){
+                            enviarNotificacion(conversacionId);
+                        }
                     }
                 }
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -29,8 +36,8 @@ public class VerificarMensajesThread extends Thread{
     /**
      * Metodo que envia una notificacion al usuario logeado
      */
-    public void enviarNotificacion() {
-        System.out.println("Mensajes sin leer");
+    public void enviarNotificacion(Integer conversacionId) {
+        System.out.println("Hay mensajes sin leer en la conversación " + conversacionId);
     }
 
     /**

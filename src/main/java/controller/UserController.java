@@ -25,6 +25,7 @@ public class UserController {
      */
     public static User usuarioLogeado;
     public static ArrayList<Conversacion> conversacionesUsuarioLogeado;
+    public static Conversacion conversacionAbierta;
 
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
