@@ -90,6 +90,11 @@ public class RightPanel extends JPanel {
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
         bottomRightPanel.add(sendButton,gbcrightBottomPanel);
         sendButton.addActionListener(e -> {
+            // no permitir mensajes vacios o con espacios
+            if(chatmsg.getText().trim().isEmpty()){
+                return;
+            }
+            
             UserController.enviarMensaje(chatmsg.getText(), getConversacionFromId(ID));
             chatPanel.addMessage(chatmsg.getText(), true, chatScrollPane);
             chatmsg.setText("");
