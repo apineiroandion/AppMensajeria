@@ -8,6 +8,7 @@ import model.dao.ConversacionDAO;
 import model.dao.DatabaseConnection;
 import model.dao.MensajeDAO;
 import model.dao.UserDAO;
+import org.springframework.ui.Model;
 import view.LoginWindow;
 import view.MainWindow;
 import view.RegisterWindow;
@@ -94,22 +95,13 @@ public class UserController {
     }
 
     /**
-     * Coprobar que el usuario esta en el array de usuarios
-     * @param userName
-     * @param password
-     * @return true si el usuario esta en el array de usuarios
-     */
-    public static boolean comprobarLogin(String userName, String password) {
-        return UserModel.loggin(userName, password);
-    }
-    /**
      * Obtener el usuario loggeado del array de usuarios
      * @param userName
      * @return el usuario logeado
      */
     public static User getUsuarioLogeado(String userName, String password) {
         for (User user : users) {
-            if (comprobarLogin(userName, password)) {
+            if (UserModel.loggin(userName, password)) {
                 System.out.println("usuario correcto");
                 return user;
             }
@@ -126,8 +118,10 @@ public class UserController {
     public static boolean volvadoDatosLogin(String userName,String password){
         User userComprobar = loginInDB(userName,password);
         if(userComprobar != null){
+            /* Auxiliar de pruebas
             User user = getUsuarioLogeado(userName,password);
-            usuarioLogeado = user;
+            */
+            usuarioLogeado = userComprobar;
             conversacionesUsuarioLogeado = getConversacionesUsuarioLogeado(usuarioLogeado);
             getMesajesForUserConversations(conversacionesUsuarioLogeado);
             conversacionesUsuarioLogeado = ConversacionDAO.getConversacionesByUserFromDB(usuarioLogeado);
