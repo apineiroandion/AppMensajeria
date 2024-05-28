@@ -70,13 +70,14 @@ public class MainWindow extends JFrame {
         ArrayList<Conversacion> conversaciones = UserController.getConversacionesUsuarioLogeado(UserController.usuarioLogeado);
         System.out.println("Conversaciones: " + conversaciones);
         System.out.println("Conversaciones: " + conversaciones.size());
-        System.out.println("Conversaciones: " + conversaciones.get(0).getParticipantes());
 
         // Verificar que hay conversaciones
         if (conversaciones == null || conversaciones.isEmpty()) {
             System.out.println("No hay conversaciones para el usuario logeado.");
             return;
         }
+
+        System.out.println("Conversaciones: " + conversaciones.get(0).getParticipantes());
 
         // Imprimir los participantes de la primera conversación para depuración
         System.out.println(conversaciones.get(0).getParticipantes());
