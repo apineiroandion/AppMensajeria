@@ -10,10 +10,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
 public class SearchWindow extends JFrame {
+    private Point initialClick;
     /**
      * ArrayList de usuarios
      */
@@ -66,6 +69,30 @@ public class SearchWindow extends JFrame {
         addTextField();
         // Añadir actionListener al botón de enviar
         addSendListener();
+
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Localización de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón desde el click inicial
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
 
         setTitle("Nueva conversación");
         setSize(300, 400);
