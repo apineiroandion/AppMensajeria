@@ -20,28 +20,19 @@ public class MainWindow extends JFrame {
     // Paneles
     private LeftPanel leftPanel;
     private BottomLeftPanel bottomLeftPanel;
-    private RightPanel rightPanel;
-    private TopRightPanel topRightPanel;
-    private BottomRightPanel bottomRightPanel;
-    private GridBagConstraints gbcrightBottomPanel;
     private ConversationListPanel conversationListPanel;
 
-    private ChatPanel chatPanel;
 
     // Labels
     private Label userNamelbl;
-    private Label userNameTopRightlbl;
 
     // TextFields
-    private GenericTextField chatmsg;
 
     // Buttons
-    private GenericButton sendButton;
-    private GenericButton userMenuButton;
+    private GenericButton userAddButton;
 
     // ScrollPanes
     private ConversationsScrollPane conversationsScrollPane;
-    private ChatScrollPane chatScrollPane;
 
     public MainWindow() {
         setLayout(new BorderLayout());
@@ -171,13 +162,14 @@ public class MainWindow extends JFrame {
     private void crearLabels(){
         // Label UserName
         userNamelbl = new Label(UserController.usuarioLogeado.getUserName(),15);
-        bottomLeftPanel.add(userNamelbl);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 1;
+        gbc.anchor = GridBagConstraints.SOUTH;
+        bottomLeftPanel.add(userNamelbl, gbc);
 
-        GenericButton userMenuButton = new GenericButton("añadir");
-        bottomLeftPanel.add(userMenuButton);
-        userMenuButton.addActionListener(e -> {
-            UserController.openSearchWindow();
-        });
+
 
     }
     /**
@@ -190,7 +182,16 @@ public class MainWindow extends JFrame {
      * Iniciar todos los buttons del JFrame
      */
     private void crearButtons() {
-
+        userAddButton = new GenericButton("añadir conversacion");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        bottomLeftPanel.add(userAddButton, gbc);
+        userAddButton.addActionListener(e -> {
+            UserController.openSearchWindow();
+        });
     }
     /**
      * Iniciar todos los scrollpanes del JFrame
