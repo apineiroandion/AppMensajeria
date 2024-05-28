@@ -25,6 +25,8 @@ public class UserController {
     public static User usuarioLogeado;
     public static ArrayList<Conversacion> conversacionesUsuarioLogeado;
 
+    private static LoginWindow loginWindow;
+
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
         // Cargar los usuarios de la base de datos
@@ -62,7 +64,7 @@ public class UserController {
      * Abre una nueva ventana de inicio de sesión.
      */
     public static void openLoginWindow(){
-        LoginWindow loginWindow = new LoginWindow();
+        loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
     }
     /**
@@ -78,6 +80,7 @@ public class UserController {
     public static void openMainWindow(){
         MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
+        loginWindow.dispose();
     }
 
     /**
