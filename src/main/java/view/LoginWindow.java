@@ -121,6 +121,12 @@ public class LoginWindow extends JFrame {
         // JPasswordField contraseña
         pwtxt = new GenericPasswordFIeld(350, 40, Color.black);
         pwtxt.setLocation(75,200);
+        pwtxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserController.comprobarlogin(usernametxt.getText(), pwtxt.getText());
+            }
+        });
         this.add(pwtxt);
     }
 
