@@ -67,6 +67,7 @@ public class MainWindow extends JFrame {
 
         setSize(800, 600);
         setTitle("Chats");
+        getContentPane().setBackground(new java.awt.Color(45, 45, 45));
         setMinimumSize(new Dimension(800, 600));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
