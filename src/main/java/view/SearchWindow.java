@@ -64,20 +64,17 @@ public class SearchWindow extends JFrame {
         addScrollPane();
         // Añadir TextField
         addTextField();
-
-
-
-
-
-        setLayout(null);
+        // Añadir actionListener al botón de enviar
         addSendListener();
 
         setTitle("Nueva conversación");
-        setUndecorated(true);
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(new Color(50, 50, 50));
         setSize(300, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setBackground(new java.awt.Color(50, 50, 50));
         setVisible(true);
     }
 
