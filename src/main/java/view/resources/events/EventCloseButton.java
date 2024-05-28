@@ -3,7 +3,9 @@ package view.resources.events;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * Evento de boton para cerrar una ventana
+ */
 public class EventCloseButton implements ActionListener {
     JButton closeButton;
     public EventCloseButton(JButton closeButton) {

@@ -17,6 +17,12 @@ public class ChatPanel extends JPanel {
         filler = new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
     }
 
+    /**
+     * Añade un mensaje al panel de chat
+     * @param message El mensaje a añadir
+     * @param isSent Si el mensaje fue enviado o recibido
+     * @param chatScrollPane El JScrollPane que contiene el panel de chat
+     */
     public void addMessage(String message, boolean isSent, JScrollPane chatScrollPane) {
         JPanel messageListPanel = new MessageListPanel(isSent);
 

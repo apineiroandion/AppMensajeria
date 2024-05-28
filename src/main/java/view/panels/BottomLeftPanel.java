@@ -2,7 +2,9 @@ package view.panels;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Panel en la parte inferior izquierda de la ventana principal.
+ */
 public class BottomLeftPanel extends JPanel {
     public BottomLeftPanel() {
         setLayout(new GridBagLayout());

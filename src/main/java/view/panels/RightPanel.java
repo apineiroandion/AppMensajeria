@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel derecho de la ventana principal.
+ */
 public class RightPanel extends JPanel {
     private TopRightPanel topRightPanel;
     private BottomRightPanel bottomRightPanel;
