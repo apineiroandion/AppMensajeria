@@ -25,6 +25,9 @@ public class UserController {
      */
     public static User usuarioLogeado;
     public static ArrayList<Conversacion> conversacionesUsuarioLogeado;
+    public static Conversacion conversacionAbierta;
+
+    private static LoginWindow loginWindow;
 
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
@@ -54,6 +57,9 @@ public class UserController {
         volvadoDatosLogin(userName, password);
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
+            //Inizia el thread que comprueba si hay mensajes nuevos
+            VerificarMensajesThread vmt = new VerificarMensajesThread();
+            vmt.iniciarThread();
             openMainWindow();
         }else{
             System.out.println("Usuario no logeado");
@@ -63,7 +69,7 @@ public class UserController {
      * Abre una nueva ventana de inicio de sesión.
      */
     public static void openLoginWindow(){
-        LoginWindow loginWindow = new LoginWindow();
+        loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
     }
     /**
@@ -79,6 +85,7 @@ public class UserController {
     public static void openMainWindow(){
         MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
+        loginWindow.dispose();
     }
 
     /**

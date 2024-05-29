@@ -20,28 +20,19 @@ public class MainWindow extends JFrame {
     // Paneles
     private LeftPanel leftPanel;
     private BottomLeftPanel bottomLeftPanel;
-    private RightPanel rightPanel;
-    private TopRightPanel topRightPanel;
-    private BottomRightPanel bottomRightPanel;
-    private GridBagConstraints gbcrightBottomPanel;
     private ConversationListPanel conversationListPanel;
 
-    private ChatPanel chatPanel;
 
     // Labels
     private Label userNamelbl;
-    private Label userNameTopRightlbl;
 
     // TextFields
-    private GenericTextField chatmsg;
 
     // Buttons
-    private GenericButton sendButton;
-    private GenericButton userMenuButton;
+    private GenericButton userAddButton;
 
     // ScrollPanes
     private ConversationsScrollPane conversationsScrollPane;
-    private ChatScrollPane chatScrollPane;
 
     public MainWindow() {
         setLayout(new BorderLayout());
@@ -67,6 +58,7 @@ public class MainWindow extends JFrame {
 
         setSize(800, 600);
         setTitle("Chats");
+        getContentPane().setBackground(new java.awt.Color(45, 45, 45));
         setMinimumSize(new Dimension(800, 600));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -78,13 +70,14 @@ public class MainWindow extends JFrame {
         ArrayList<Conversacion> conversaciones = UserController.getConversacionesUsuarioLogeado(UserController.usuarioLogeado);
         System.out.println("Conversaciones: " + conversaciones);
         System.out.println("Conversaciones: " + conversaciones.size());
-        System.out.println("Conversaciones: " + conversaciones.get(0).getParticipantes());
 
         // Verificar que hay conversaciones
         if (conversaciones == null || conversaciones.isEmpty()) {
             System.out.println("No hay conversaciones para el usuario logeado.");
             return;
         }
+
+        System.out.println("Conversaciones: " + conversaciones.get(0).getParticipantes());
 
         // Imprimir los participantes de la primera conversación para depuración
         System.out.println(conversaciones.get(0).getParticipantes());
@@ -103,10 +96,13 @@ public class MainWindow extends JFrame {
             // Obtener el nombre de la conversación
             String conversationName = getConversationName(participantes);
 
+            // Obtener el ID de la conversación
+            int ID = conversacion.getCodigoConversacion();
+
             // Verificar que el nombre de la conversación no es nulo
             if (conversationName != null) {
                 // Agregar la conversación al panel
-                conversationListPanel.addConversation(conversationName);
+                conversationListPanel.addConversation(conversationName, ID);
             } else {
                 System.out.println("No se encontró un nombre de conversación válido para la conversación con participantes: " + participantes);
             }
@@ -151,8 +147,8 @@ public class MainWindow extends JFrame {
          * Panel derecho
          * Chat
          */
-        rightPanel = new RightPanel("defaultUser");
-        add(rightPanel, BorderLayout.CENTER);
+/*        rightPanel = new RightPanel("defaultUser", 1);
+        add(rightPanel, BorderLayout.CENTER);*/
 
 
 
@@ -167,13 +163,14 @@ public class MainWindow extends JFrame {
     private void crearLabels(){
         // Label UserName
         userNamelbl = new Label(UserController.usuarioLogeado.getUserName(),15);
-        bottomLeftPanel.add(userNamelbl);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 1;
+        gbc.anchor = GridBagConstraints.SOUTH;
+        bottomLeftPanel.add(userNamelbl, gbc);
 
-        GenericButton userMenuButton = new GenericButton("añadir");
-        bottomLeftPanel.add(userMenuButton);
-        userMenuButton.addActionListener(e -> {
-            UserController.openSearchWindow();
-        });
+
 
     }
     /**
@@ -186,7 +183,16 @@ public class MainWindow extends JFrame {
      * Iniciar todos los buttons del JFrame
      */
     private void crearButtons() {
-
+        userAddButton = new GenericButton("añadir conversacion");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        bottomLeftPanel.add(userAddButton, gbc);
+        userAddButton.addActionListener(e -> {
+            UserController.openSearchWindow();
+        });
     }
     /**
      * Iniciar todos los scrollpanes del JFrame

@@ -8,11 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Frame ventana registro
  */
 public class RegisterWindow extends JFrame {
+    private Point initialClick;
     // Textfields
     GenericTextField userName;
     GenericTextField firstName;
@@ -25,6 +28,30 @@ public class RegisterWindow extends JFrame {
         crearLabels();
         // Mostrar todos los buttons del frame
         crearButtons();
+
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Localización de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón desde el click inicial
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
 
         setSize(350, 500);
         setLayout(null);
@@ -109,6 +136,12 @@ public class RegisterWindow extends JFrame {
         registerbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Bloquear el registro si algún campo está vacío
+                if (userName.getText().trim().isEmpty()||firstName.getText().trim().isEmpty()||surName.getText().trim().isEmpty()||password.getText().trim().isEmpty()){
+                    System.out.println("Faltan campos por rellenar");
+                    return;
+                }
+
                 UserController.comprobarRegistro(userName.getText(), firstName.getText(), surName.getText(), password.getText());
                 dispose();
             }
