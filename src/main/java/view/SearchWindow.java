@@ -212,6 +212,11 @@ public class SearchWindow extends JFrame {
      */
     public void addSendListener() {
         sendMessage.addActionListener(e -> {
+            // No permitir mensajes en blanco
+            if (getFirstMessage().trim().isEmpty()) {
+                return;
+            }
+
             int index = 0;
             int comprobador = 0;
             for(User user: users){
