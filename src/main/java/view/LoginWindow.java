@@ -88,6 +88,10 @@ public class LoginWindow extends JFrame {
      * Iniciar todos los labels del JFrame
      */
     private void crearLabels() {
+        // JLabel titlelbl
+        JLabel titlelbl = new Label("Iniciar Sesión",30);
+        titlelbl.setBounds(150, 10, 500, 40);
+        this.add(titlelbl);
         // JLabel usuario
         JLabel usernamelbl = new Label("Usuario",20);
         usernamelbl.setBounds(75, 65, 100, 40);

@@ -8,7 +8,9 @@ import view.resources.GenericTextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+
+import view.resources.Label;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -25,6 +27,10 @@ public class SearchWindow extends JFrame {
      * Vector de strings de nombres de usuario
      */
     private Vector<String> userNames;
+    /**
+     * Label del titulo de la ventana
+     */
+    private JLabel titlelbl;
     /**
      * JTable de nombre de usuario
      */
@@ -67,6 +73,8 @@ public class SearchWindow extends JFrame {
         addScrollPane();
         // Añadir TextField
         addTextField();
+        // Añadir Label
+        addLabel();
         // Añadir actionListener al botón de enviar
         addSendListener();
 
@@ -132,6 +140,16 @@ public class SearchWindow extends JFrame {
         // eliminar bordes
         userScrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(userScrollPane);
+    }
+
+    /**
+     * Añade el label de la ventana
+     */
+    public void addLabel() {
+        titlelbl = new Label("Crea una nueva conversación", 15);
+        titlelbl.setForeground(new Color(255, 255, 255));
+        titlelbl.setBounds(12, 10, 250, 30);
+        add(titlelbl);
     }
 
     /**
