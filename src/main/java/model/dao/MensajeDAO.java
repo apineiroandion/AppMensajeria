@@ -86,5 +86,91 @@ public class MensajeDAO {
         }
         return mensajes;
     }
+    /**
+     * Obtiene los mensajes sin ler de una conversación específica de la base de datos.
+     * Este método consulta la tabla de mensajes en la base de datos y devuelve una lista de mensajes.
+     * @param conversacionId el ID de la conversación para la que se van a obtener los mensajes.
+     * @return ArrayList<Mensaje> la lista de mensajes obtenidos de la base de datos.
+     * @throws RuntimeException si ocurre un error al obtener los mensajes de la base de datos.
+     */
+    public static ArrayList<Mensaje> getMensajesSinLeerFromDB(Integer conversacionId) {
+        ArrayList<Mensaje> mensajes = new ArrayList<>();
+        String query = "SELECT * FROM mensaje WHERE codigoConversacion = ? AND leido = false";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setInt(1, conversacionId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String userName = rs.getString("userName");
+                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                    String contenido = rs.getString("contenido");
+                    Integer codigoConversacion = rs.getInt("codigoConversacion");
+
+                    User userAux = null;
+                    for (User user : users) {
+                        if (userName.equals(user.getUserName())) {
+                            userAux = user;
+                            break;
+                        }
+                    }
+
+                    Mensaje mensaje = new Mensaje(contenido, userAux);
+                    mensajes.add(mensaje);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al consultar los mensajes de la conversación", e);
+        }
+        return mensajes;
+    }
+
+    /**
+     * Marca los mensajes de una conversación como leídos en la base de datos.
+     * Este método actualiza el campo "leido" de los mensajes de una conversación en la base de datos.
+     * @param conversacionId el ID de la conversación para la que se van a marcar los mensajes como leídos.
+     * @return true si los mensajes se marcaron correctamente como leídos en la base de datos, false en caso contrario.
+     * @throws RuntimeException si ocurre un error al marcar los mensajes como leídos en la base de datos.
+     */
+    public static boolean marcarMensajesComoLeidos(Integer conversacionId) {
+        String query = "UPDATE mensaje SET leido = true WHERE codigoConversacion = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setInt(1, conversacionId);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al marcar los mensajes como leídos", e);
+        }
+    }
+
+    /**
+     * Metodo que devuelve una lista de id de conversaciones donde hay mensajes sin leer y que el usuario que los envia
+     * sea distinto al usuario logeado
+     * @param userName
+     * @return lista de id de conversaciones
+     */
+    public static ArrayList<Integer> getConversacionesConMensajesSinLeer(String userName) {
+        ArrayList<Integer> conversaciones = new ArrayList<>();
+        String query = "SELECT codigoConversacion FROM mensaje WHERE userName != ? AND leido = false";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setString(1, userName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Integer codigoConversacion = rs.getInt("codigoConversacion");
+                    conversaciones.add(codigoConversacion);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al consultar las conversaciones con mensajes sin leer", e);
+        }
+        return conversaciones;
+    }
 
 }

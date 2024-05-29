@@ -25,6 +25,9 @@ public class UserController {
      */
     public static User usuarioLogeado;
     public static ArrayList<Conversacion> conversacionesUsuarioLogeado;
+    public static Conversacion conversacionAbierta;
+
+    private static LoginWindow loginWindow;
 
     private static LoginWindow loginWindow;
 
@@ -56,6 +59,9 @@ public class UserController {
         volvadoDatosLogin(userName, password);
         if(UserModel.loggin(userName, password)){
             System.out.println("Usuario logeado");
+            //Inizia el thread que comprueba si hay mensajes nuevos
+            VerificarMensajesThread vmt = new VerificarMensajesThread();
+            vmt.iniciarThread();
             openMainWindow();
         }else{
             System.out.println("Usuario no logeado");
@@ -143,7 +149,9 @@ public class UserController {
      * @return true si el usuario se registró correctamente en la base de datos, false en caso contrario.
      */
     public static boolean registrarUsuario(String userName,String firstName, String surname, String password){
-        return UserDAO.addUserToDB(new User(userName,firstName,surname,password));
+        boolean estaRegistrado = UserDAO.addUserToDB(new User(userName,firstName,surname,password));
+        users = UserDAO.getUserFromDB();
+        return estaRegistrado;
     }
     /**
      * Comprueba si un usuario se registró correctamente en la base de datos.
