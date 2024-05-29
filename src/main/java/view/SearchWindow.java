@@ -127,7 +127,7 @@ public class SearchWindow extends JFrame {
 
         // Botón de enviar
         sendMessage = new GenericButton("Enviar");
-        sendMessage.setBounds(200, 350, 75, 40);
+        sendMessage.setBounds(205, 355, 80, 40);
         add(sendMessage);
     }
 
@@ -174,6 +174,10 @@ public class SearchWindow extends JFrame {
         userTable.getTableHeader().setForeground(new Color(255, 255, 255));
         // cambiar color de la cuadricula
         userTable.setGridColor(new Color(0, 0, 0));
+        // cambiar tamaño y fuente texto
+        userTable.setFont(new Font("Arial", Font.PLAIN, 20));
+        // cambiar tamaño filas
+        userTable.setRowHeight(30);
         userTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
     /**
@@ -181,7 +185,7 @@ public class SearchWindow extends JFrame {
      */
     public void addTextField() {
         firstMessage = new GenericTextField(200, 20, Color.BLACK);
-        firstMessage.setBounds(12, 350, 175, 40);
+        firstMessage.setBounds(12, 355, 180, 40);
         add(firstMessage);
     }
     /**
