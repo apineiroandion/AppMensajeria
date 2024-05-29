@@ -80,7 +80,7 @@ public class LoginWindow extends JFrame {
         loginbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserController.comprobarlogin(usernametxt.getText(), pwtxt.getText());
+                intentarLogin(usernametxt.getText(), pwtxt.getText());
             }
         });
     }
@@ -128,10 +128,19 @@ public class LoginWindow extends JFrame {
         pwtxt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserController.comprobarlogin(usernametxt.getText(), pwtxt.getText());
+                intentarLogin(usernametxt.getText(), pwtxt.getText());
             }
         });
         this.add(pwtxt);
+    }
+
+    private void intentarLogin(String username, String password) {
+        // no permitir campos vacios
+        if (usernametxt.getText().trim().isEmpty()||pwtxt.getText().trim().isEmpty()){
+            System.out.println("Faltan campos por rellenar");
+            return;
+        }
+        UserController.comprobarlogin(username, password);
     }
 
 }

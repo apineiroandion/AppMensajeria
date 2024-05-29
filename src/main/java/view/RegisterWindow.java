@@ -136,6 +136,12 @@ public class RegisterWindow extends JFrame {
         registerbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Bloquear el registro si algún campo está vacío
+                if (userName.getText().trim().isEmpty()||firstName.getText().trim().isEmpty()||surName.getText().trim().isEmpty()||password.getText().trim().isEmpty()){
+                    System.out.println("Faltan campos por rellenar");
+                    return;
+                }
+
                 UserController.comprobarRegistro(userName.getText(), firstName.getText(), surName.getText(), password.getText());
                 dispose();
             }
