@@ -147,7 +147,9 @@ public class UserController {
      * @return true si el usuario se registró correctamente en la base de datos, false en caso contrario.
      */
     public static boolean registrarUsuario(String userName,String firstName, String surname, String password){
-        return UserDAO.addUserToDB(new User(userName,firstName,surname,password));
+        boolean estaRegistrado = UserDAO.addUserToDB(new User(userName,firstName,surname,password));
+        users = UserDAO.getUserFromDB();
+        return estaRegistrado;
     }
     /**
      * Comprueba si un usuario se registró correctamente en la base de datos.
