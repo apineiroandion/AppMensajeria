@@ -18,8 +18,9 @@ public class ConversationPanel extends JPanel {
      * Constructor
      * @param usuario Nombre de usuario
      * @param parentPanel Panel superior
+     * @param ID ID de la conversación
      */
-    public ConversationPanel(String usuario, ConversationListPanel parentPanel) {
+    public ConversationPanel(String usuario, ConversationListPanel parentPanel, int ID) {
         this.parentPanel = parentPanel;
         setPreferredSize(new Dimension(250,50));
         setMaximumSize(new Dimension(250,50));
@@ -35,12 +36,12 @@ public class ConversationPanel extends JPanel {
             // Cambiar color y cambiar chats al hacer clic
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Se ha hecho clic en el panel de conversación de " + usuario);
+                System.out.println("Se ha hecho clic en el panel de conversación de " + usuario + "con ID: " + ID);
                 setBackground(new Color(40,40,40));
                 parentPanel.changeColorOthers(ConversationPanel.this); // Deseleccionar otros ConversationPanel
 
                 // Create a new RightPanel
-                RightPanel rightPanel = new RightPanel(usuario);
+                RightPanel rightPanel = new RightPanel(usuario, ID);
 
                 // Get the MainWindow instance
                 MainWindow mainWindow = (MainWindow) SwingUtilities.getWindowAncestor(ConversationPanel.this);

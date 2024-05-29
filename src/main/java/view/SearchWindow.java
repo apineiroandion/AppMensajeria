@@ -8,12 +8,17 @@ import view.resources.GenericTextField;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+
+import view.resources.Label;
+
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
 public class SearchWindow extends JFrame {
+    private Point initialClick;
     /**
      * ArrayList de usuarios
      */
@@ -22,6 +27,10 @@ public class SearchWindow extends JFrame {
      * Vector de strings de nombres de usuario
      */
     private Vector<String> userNames;
+    /**
+     * Label del titulo de la ventana
+     */
+    private JLabel titlelbl;
     /**
      * JTable de nombre de usuario
      */
@@ -64,20 +73,43 @@ public class SearchWindow extends JFrame {
         addScrollPane();
         // Añadir TextField
         addTextField();
-
-
-
-
-
-        setLayout(null);
+        // Añadir Label
+        addLabel();
+        // Añadir actionListener al botón de enviar
         addSendListener();
 
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Localización de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón desde el click inicial
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
+
         setTitle("Nueva conversación");
-        setUndecorated(true);
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(new Color(50, 50, 50));
         setSize(300, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setBackground(new java.awt.Color(50, 50, 50));
         setVisible(true);
     }
 
@@ -95,7 +127,7 @@ public class SearchWindow extends JFrame {
 
         // Botón de enviar
         sendMessage = new GenericButton("Enviar");
-        sendMessage.setBounds(200, 350, 75, 40);
+        sendMessage.setBounds(205, 355, 80, 40);
         add(sendMessage);
     }
 
@@ -108,6 +140,16 @@ public class SearchWindow extends JFrame {
         // eliminar bordes
         userScrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(userScrollPane);
+    }
+
+    /**
+     * Añade el label de la ventana
+     */
+    public void addLabel() {
+        titlelbl = new Label("Crea una nueva conversación", 15);
+        titlelbl.setForeground(new Color(255, 255, 255));
+        titlelbl.setBounds(12, 10, 250, 30);
+        add(titlelbl);
     }
 
     /**
@@ -132,6 +174,10 @@ public class SearchWindow extends JFrame {
         userTable.getTableHeader().setForeground(new Color(255, 255, 255));
         // cambiar color de la cuadricula
         userTable.setGridColor(new Color(0, 0, 0));
+        // cambiar tamaño y fuente texto
+        userTable.setFont(new Font("Arial", Font.PLAIN, 20));
+        // cambiar tamaño filas
+        userTable.setRowHeight(30);
         userTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
     /**
@@ -139,7 +185,7 @@ public class SearchWindow extends JFrame {
      */
     public void addTextField() {
         firstMessage = new GenericTextField(200, 20, Color.BLACK);
-        firstMessage.setBounds(12, 350, 175, 40);
+        firstMessage.setBounds(12, 355, 180, 40);
         add(firstMessage);
     }
     /**
@@ -166,6 +212,11 @@ public class SearchWindow extends JFrame {
      */
     public void addSendListener() {
         sendMessage.addActionListener(e -> {
+            // No permitir mensajes en blanco
+            if (getFirstMessage().trim().isEmpty()) {
+                return;
+            }
+
             int index = 0;
             int comprobador = 0;
             for(User user: users){

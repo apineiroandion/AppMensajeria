@@ -20,8 +20,8 @@ public class ConversationListPanel extends JPanel {
      * Añade una conversación al panel
      * @param usuario Nombre de usuario del chat
      */
-    public void addConversation(String usuario) {
-        ConversationPanel conversationPanel = new ConversationPanel(usuario, this);
+    public void addConversation(String usuario, int ID) {
+        ConversationPanel conversationPanel = new ConversationPanel(usuario, this, ID);
         this.add(conversationPanel);
         conversationPanels.add(conversationPanel);
     }

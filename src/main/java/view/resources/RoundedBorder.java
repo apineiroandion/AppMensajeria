@@ -8,7 +8,12 @@ import java.awt.*;
  */
 public class RoundedBorder extends LineBorder {
     private int radius;
-
+    /**
+     * Constructor
+     * @param color color del borde
+     * @param thickness grosor del borde
+     * @param radius radio de las esquinas
+     */
     public RoundedBorder(Color color, int thickness, int radius) {
         super(color, thickness);
         this.radius = radius;
