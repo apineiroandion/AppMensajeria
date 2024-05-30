@@ -160,7 +160,7 @@ public class MensajeDAO {
      */
     public static ArrayList<Integer> getConversacionesConMensajesSinLeer(String userName) {
         ArrayList<Integer> conversaciones = new ArrayList<>();
-        String query = "SELECT codigoConversacion FROM mensaje WHERE userName != ? AND leido = false";
+        String query = "SELECT codigoConversacion FROM mensaje WHERE userName = ? AND leido = false";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement(query)) {
