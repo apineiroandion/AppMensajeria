@@ -28,8 +28,7 @@ public class UserController {
     public static Conversacion conversacionAbierta;
 
     private static LoginWindow loginWindow;
-
-    private static LoginWindow loginWindow;
+    
 
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
