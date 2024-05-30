@@ -26,6 +26,7 @@ public class UserController {
 
     private static LoginWindow loginWindow;
 
+
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
         // Cargar los usuarios de la base de datos

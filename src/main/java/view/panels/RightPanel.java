@@ -37,6 +37,8 @@ public class RightPanel extends JPanel {
         setBackground(new Color(45,45,45));
         setLayout(new BorderLayout());
 
+        UserController.conversacionAbierta = getConversacionFromId(ID); // Establecer conversacion abierta
+
         /**
          * topRightPanel GridBagLayout
          * Panel superior derecho
@@ -150,5 +152,14 @@ public class RightPanel extends JPanel {
         // Actualiza el ChatPanel para mostrar los nuevos mensajes
         chatPanel.revalidate();
         chatPanel.repaint();
+    }
+
+    /**
+     * Añade un mensaje al ChatPanel.
+     * @param message el mensaje a añadir.
+     * @param isUserMessage true si el mensaje fue enviado por el usuario actual, false en caso contrario.
+     */
+    public void addMessage(String message, boolean isUserMessage) {
+        chatPanel.addMessage(message, isUserMessage, chatScrollPane);
     }
 }
