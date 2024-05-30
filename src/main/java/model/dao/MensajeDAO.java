@@ -1,5 +1,6 @@
 package model.dao;
 
+import controller.UserController;
 import model.Conversacion;
 import model.Mensaje;
 import model.User;
@@ -93,7 +94,7 @@ public class MensajeDAO {
      * @return ArrayList<Mensaje> la lista de mensajes obtenidos de la base de datos.
      * @throws RuntimeException si ocurre un error al obtener los mensajes de la base de datos.
      */
-    public static ArrayList<Mensaje> getMensajesSinLeerFromDB(Integer conversacionId) {
+    public static boolean getMensajesSinLeerFromDB(Integer conversacionId) {
         ArrayList<Mensaje> mensajes = new ArrayList<>();
         String query = "SELECT * FROM mensaje WHERE codigoConversacion = ? AND leido = false";
 
@@ -123,7 +124,11 @@ public class MensajeDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error al consultar los mensajes de la conversación", e);
         }
-        return mensajes;
+        if (mensajes == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -171,6 +176,32 @@ public class MensajeDAO {
             throw new RuntimeException("Error al consultar las conversaciones con mensajes sin leer", e);
         }
         return conversaciones;
+    }
+
+    /**
+     * Metodo que comprueba si una conversacion tiene mensajes sin leer y si el usuario logeado no es el que envio el mensaje
+     * @param conversacionId
+     * @return true si hay mensajes sin leer y el usuario que los envia es distinto al usuario logeado
+     */
+    public static boolean hayMensajesNoLeidos(Integer conversacionId) {
+        String query = "SELECT * FROM mensaje WHERE codigoConversacion = ? AND leido = false";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setInt(1, conversacionId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String userName = rs.getString("userName");
+                    if (!userName.equals(UserController.usuarioLogeado.getUserName())) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al consultar los mensajes sin leer", e);
+        }
+        return false;
     }
 
 }
