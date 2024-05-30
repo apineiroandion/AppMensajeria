@@ -5,16 +5,13 @@ import model.Mensaje;
 import model.User;
 import model.UserModel;
 import model.dao.ConversacionDAO;
-import model.dao.DatabaseConnection;
 import model.dao.MensajeDAO;
 import model.dao.UserDAO;
-import org.springframework.ui.Model;
 import view.LoginWindow;
 import view.MainWindow;
 import view.RegisterWindow;
 import view.SearchWindow;
 
-import java.sql.*;
 import java.util.ArrayList;
 
 import static model.UserModel.users;
