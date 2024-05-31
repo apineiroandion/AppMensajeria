@@ -17,11 +17,16 @@ public class MessageUpdater extends Thread{
     @Override
     public void run() {
         // Actualizar los mensajes
-        while (updaterRunning.get()){ // Mientras el hilo de verificación de mensajes esté corriendo
+        while (true){ // Mientras el hilo de verificación de mensajes esté corriendo
             try {
-                rightPanel.updateMessages(conversationId);
-                rightPanel.validate();
-                rightPanel.repaint();
+                if (updaterRunning.get()) {
+                    System.out.println("Updater running: " + updaterRunning.get());
+                    rightPanel.updateMessages(conversationId);
+                    rightPanel.validate();
+                    rightPanel.repaint();
+                    updateIsRunning(false);
+                    break;
+                }
                 System.out.println("rula");
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
