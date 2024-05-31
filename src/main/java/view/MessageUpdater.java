@@ -1,4 +1,5 @@
 package view;
+import controller.VerificarMensajesThread;
 import view.panels.RightPanel;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class MessageUpdater extends Thread{
     @Override
     public void run() {
         // Actualizar los mensajes
-        while (true){
+        while (VerificarMensajesThread.updaterRunning){ // Mientras el hilo de verificación de mensajes esté corriendo
             try {
                 rightPanel.updateMessages(conversationId);
                 rightPanel.validate();
@@ -37,5 +38,7 @@ public class MessageUpdater extends Thread{
     public void stopMessageUpdate() {
         this.interrupt();
     }
+
+
 
 }

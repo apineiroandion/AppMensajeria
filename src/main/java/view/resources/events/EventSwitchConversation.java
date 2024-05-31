@@ -1,5 +1,6 @@
 package view.resources.events;
 
+import controller.UserController;
 import view.MainWindow;
 import view.MessageUpdater;
 import view.panels.ConversationListPanel;
@@ -44,6 +45,9 @@ public class EventSwitchConversation extends MouseAdapter {
                 mainWindow.getContentPane().remove(component);
             }
         }
+
+        //Pasa el ID al controlador
+        UserController.updateConversacionAbierta(ID);
 
         // Add the new RightPanel to the MainWindow
         mainWindow.getContentPane().add(rightPanel, BorderLayout.CENTER);

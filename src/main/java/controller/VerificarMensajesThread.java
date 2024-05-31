@@ -11,6 +11,7 @@ import java.util.List;
  * que no hayan sido leidos por el ususario logeado
  */
 public class VerificarMensajesThread extends Thread{
+    public static boolean updaterRunning = false;
     /**
      * Metodo run del thread
      */
@@ -22,10 +23,12 @@ public class VerificarMensajesThread extends Thread{
                     ArrayList<Integer> conversacionesConMensajesNoLeidos = MensajeDAO.getConversacionesConMensajesSinLeer(UserController.usuarioLogeado.getUserName());
                     for (Integer conversacionId : conversacionesConMensajesNoLeidos) {
                         if(sustituirConversacionesUsuarioLogeado()){
+                            updaterRunning = true;
                             enviarNotificacion(conversacionId);
                         }
                     }
                 }
+                updaterRunning = false;
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
