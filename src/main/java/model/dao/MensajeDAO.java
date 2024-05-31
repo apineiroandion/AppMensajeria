@@ -139,12 +139,13 @@ public class MensajeDAO {
      * @throws RuntimeException si ocurre un error al marcar los mensajes como leídos en la base de datos.
      */
     public static boolean marcarMensajesComoLeidos(Integer conversacionId) {
-        String query = "UPDATE mensaje SET leido = true WHERE codigoConversacion = ?";
+        String query = "UPDATE mensaje SET leido = true WHERE codigoConversacion = ? AND userName != ?";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement(query)) {
 
             pstmt.setInt(1, conversacionId);
+            pstmt.setString(2, UserController.usuarioLogeado.getUserName());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {

@@ -2,12 +2,12 @@ package view;
 import controller.VerificarMensajesThread;
 import view.panels.RightPanel;
 
-import javax.swing.*;
-import java.util.List;
+import  java.util.concurrent.atomic.AtomicBoolean;
 
 public class MessageUpdater extends Thread{
     private RightPanel rightPanel;
     private int conversationId;
+    public static AtomicBoolean updaterRunning = new AtomicBoolean(false);
 
     public MessageUpdater(RightPanel rightPanel, int conversationId) {
         this.rightPanel = rightPanel;
@@ -17,7 +17,7 @@ public class MessageUpdater extends Thread{
     @Override
     public void run() {
         // Actualizar los mensajes
-        while (VerificarMensajesThread.updaterRunning){ // Mientras el hilo de verificación de mensajes esté corriendo
+        while (updaterRunning.get()){ // Mientras el hilo de verificación de mensajes esté corriendo
             try {
                 rightPanel.updateMessages(conversationId);
                 rightPanel.validate();
@@ -32,6 +32,7 @@ public class MessageUpdater extends Thread{
     }
 
     public void startMessageUpdate() {
+        System.out.println("Start message update");
         this.start();
     }
 
@@ -39,6 +40,14 @@ public class MessageUpdater extends Thread{
         this.interrupt();
     }
 
+    /**
+     * Metodo estatico que pone updaterRunning a true o false segun lo que reciba
+     * @param running true para poner updaterRunning a true, false para ponerlo a false
+     */
+    public static void updateIsRunning(boolean running) {
+        updaterRunning.set(running);
+        System.out.println("Updater running: " + updaterRunning.get());
+    }
 
 
 }

@@ -2,16 +2,17 @@ package controller;
 
 import model.dao.ConversacionDAO;
 import model.dao.MensajeDAO;
+import view.MessageUpdater;
 
 import java.util.ArrayList;
-import java.util.List;
+import  java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Esta clase es un thread que comprueba cada 2 segundos si hay mensajes nuevos en la base de datos
  * que no hayan sido leidos por el ususario logeado
  */
 public class VerificarMensajesThread extends Thread{
-    public static boolean updaterRunning = false;
+
     /**
      * Metodo run del thread
      */
@@ -23,13 +24,15 @@ public class VerificarMensajesThread extends Thread{
                     ArrayList<Integer> conversacionesConMensajesNoLeidos = MensajeDAO.getConversacionesConMensajesSinLeer(UserController.usuarioLogeado.getUserName());
                     for (Integer conversacionId : conversacionesConMensajesNoLeidos) {
                         if(sustituirConversacionesUsuarioLogeado()){
-                            updaterRunning = true;
+                            //updateIsRunningTrue();
+                            MessageUpdater.updateIsRunning(true);
                             enviarNotificacion(conversacionId);
                         }
                     }
                 }
-                updaterRunning = false;
                 Thread.sleep(5000);
+                //updateIsRunningFalse();
+                MessageUpdater.updateIsRunning(false);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -82,4 +85,18 @@ public class VerificarMensajesThread extends Thread{
         System.out.println("Thread is running");
         return this.isAlive();
     }
+//    /**
+//     * Actualizar is running
+//     */
+//    public void updateIsRunningTrue() {
+//        System.out.println("Updater is running");
+//        MessageUpdater.updaterRunning =  true;
+//    }
+//    /**
+//     * Actualizar is running fale
+//     */
+//    public void updateIsRunningFalse() {
+//        System.out.println("Updater is not running");
+//        MessageUpdater.updaterRunning =  false;
+//    }
 }
