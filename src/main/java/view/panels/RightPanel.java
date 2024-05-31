@@ -5,6 +5,7 @@ import model.Conversacion;
 import model.Mensaje;
 import model.dao.ConversacionDAO;
 import model.dao.MensajeDAO;
+import view.MessageUpdater;
 import view.resources.ChatScrollPane;
 import view.resources.GenericButton;
 import view.resources.GenericTextField;
@@ -73,6 +74,11 @@ public class RightPanel extends JPanel {
 
 
         updateMessages(ID);
+
+        // Iniciar el hilo que actualiza los mensajes
+        MessageUpdater updater = new MessageUpdater(this, ID);
+        updater.startMessageUpdate();
+
 
         // JTextField chatmsg
         chatmsg = new GenericTextField(100,50,Color.BLACK);
