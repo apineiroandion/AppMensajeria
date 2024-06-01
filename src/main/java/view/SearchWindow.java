@@ -3,6 +3,7 @@ package view;
 import controller.UserController;
 import model.User;
 
+import view.resources.*;
 import view.resources.Label;
 import view.resources.CloseButton;
 import view.resources.GenericButton;
