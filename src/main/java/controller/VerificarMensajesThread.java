@@ -27,6 +27,7 @@ public class VerificarMensajesThread extends Thread{
                             //updateIsRunningTrue();
                             MessageUpdater.updateIsRunning(true);
                             enviarNotificacion(conversacionId);
+                            UpdateMensajesThread.updateMensajesIsRunning(true);
                         }
                     }
                 }

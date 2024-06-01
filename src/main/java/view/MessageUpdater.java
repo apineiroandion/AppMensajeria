@@ -20,6 +20,7 @@ public class MessageUpdater extends Thread{
         while (true){ // Mientras el hilo de verificación de mensajes esté corriendo
             try {
                 if (updaterRunning.get()) {
+                    System.out.println("in");
                     System.out.println("Updater running: " + updaterRunning.get());
                     rightPanel.updateMessages(conversationId);
                     rightPanel.validate();
