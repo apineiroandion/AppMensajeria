@@ -2,14 +2,11 @@ package view;
 
 import controller.UserController;
 import model.User;
-import view.resources.CloseButton;
-import view.resources.GenericButton;
-import view.resources.GenericTextField;
+import view.resources.*;
+import view.resources.Label;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import view.resources.Label;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -139,6 +136,8 @@ public class SearchWindow extends JFrame {
         userScrollPane.setBounds(12, 50, 275, 300);
         // eliminar bordes
         userScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        // Aplicar la UI personalizada al scrollbar
+        userScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI());
         add(userScrollPane);
     }
 
