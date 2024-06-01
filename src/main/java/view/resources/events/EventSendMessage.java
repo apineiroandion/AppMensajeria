@@ -29,6 +29,7 @@ public class EventSendMessage implements ActionListener {
         if (!chatmsg.getText().equals("")) {
             Conversacion conversacion= UserController.getConversacionFromId(id);
             UserController.enviarMensaje(chatmsg.getText(), conversacion);
+            rightPanel.addMessage(chatmsg.getText(), true);
             chatmsg.setText("");
             chatScrollPane.getVerticalScrollBar().setValue(chatScrollPane.getVerticalScrollBar().getMaximum());
         }
