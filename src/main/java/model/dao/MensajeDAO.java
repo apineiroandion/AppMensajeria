@@ -57,7 +57,7 @@ public class MensajeDAO {
      */
     public static ArrayList<Mensaje> getMensajesFromDB(Integer conversacionId) {
         ArrayList<Mensaje> mensajes = new ArrayList<>();
-        String query = "SELECT * FROM mensaje WHERE codigoConversacion = ?";
+        String query = "SELECT * FROM mensaje WHERE codigoConversacion = ? order by  n";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement pstmt = con.prepareStatement(query)) {
