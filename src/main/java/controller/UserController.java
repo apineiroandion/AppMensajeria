@@ -5,16 +5,13 @@ import model.Mensaje;
 import model.User;
 import model.UserModel;
 import model.dao.ConversacionDAO;
-import model.dao.DatabaseConnection;
 import model.dao.MensajeDAO;
 import model.dao.UserDAO;
-import org.springframework.ui.Model;
 import view.LoginWindow;
 import view.MainWindow;
 import view.RegisterWindow;
 import view.SearchWindow;
 
-import java.sql.*;
 import java.util.ArrayList;
 
 import static model.UserModel.users;
@@ -29,21 +26,11 @@ public class UserController {
 
     private static LoginWindow loginWindow;
 
+
     public static void iniciarApp(){
         System.out.println("Iniciando la aplicación...");
         // Cargar los usuarios de la base de datos
         users = UserDAO.getUserFromDB();
-        /*
-        User user1 = new User("user1", "User", "One", "password");
-        users.add(user1);
-        UserDAO.addUserToDB(user1);
-        */
-        /*
-        UserDAO.deleteAllUsersFromDB();
-        users = UserDAO.getUserFromDB();
-        System.out.println(users.get(1).getUserName().toString());
-        */
-        //UserDAO.addUserToDB(new User("UsuarioPrueba", "usuario", "prueba", "1234"));
         openLoginWindow();
     }
 
@@ -60,6 +47,8 @@ public class UserController {
             //Inizia el thread que comprueba si hay mensajes nuevos
             VerificarMensajesThread vmt = new VerificarMensajesThread();
             vmt.iniciarThread();
+            UpdateMensajesThread umt = new UpdateMensajesThread();
+            umt.iniciarThread();
             openMainWindow();
         }else{
             System.out.println("Usuario no logeado");
@@ -225,4 +214,27 @@ public class UserController {
         conversacionesUsuarioLogeado.add(conversacion);
         return true;
     }
+
+    /**
+     * Metodo que busca una conversacion del arrayLIst de conversaciones cuando le pasas el id
+     * @param id
+     * @return la conversacion
+     */
+    public static Conversacion getConversacionFromId(int id) {
+        for (Conversacion conversacion : conversacionesUsuarioLogeado) {
+            if (conversacion.getCodigoConversacion() == id) {
+                return conversacion;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Metodo que actualiza la conversacionAbierta con la conversacion que se le pasa utilizando el metodo getConversacionFromId
+     * @param id
+     */
+    public static void updateConversacionAbierta(int id) {
+        conversacionAbierta = getConversacionFromId(id);
+    }
+
 }

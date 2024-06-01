@@ -5,14 +5,17 @@ import model.Conversacion;
 import model.Mensaje;
 import model.dao.ConversacionDAO;
 import model.dao.MensajeDAO;
+import view.MessageUpdater;
 import view.resources.ChatScrollPane;
 import view.resources.GenericButton;
 import view.resources.GenericTextField;
 import view.resources.Label;
+import view.resources.events.EventSendMessage;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +39,8 @@ public class RightPanel extends JPanel {
     public RightPanel(String userName, int ID){
         setBackground(new Color(45,45,45));
         setLayout(new BorderLayout());
+
+        UserController.conversacionAbierta = getConversacionFromId(ID); // Establecer conversacion abierta
 
         /**
          * topRightPanel GridBagLayout
@@ -72,6 +77,11 @@ public class RightPanel extends JPanel {
 
         updateMessages(ID);
 
+        // Iniciar el hilo que actualiza los mensajes
+        MessageUpdater updater = new MessageUpdater(this, ID);
+        updater.startMessageUpdate();
+
+
         // JTextField chatmsg
         chatmsg = new GenericTextField(100,50,Color.BLACK);
         chatmsg.setPreferredSize(new Dimension(chatmsg.getWidth(), 50));
@@ -92,16 +102,10 @@ public class RightPanel extends JPanel {
         gbcrightBottomPanel.weighty = 1;
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
         bottomRightPanel.add(sendButton,gbcrightBottomPanel);
-        sendButton.addActionListener(e -> {
-            // no permitir mensajes vacios o con espacios
-            if(chatmsg.getText().trim().isEmpty()){
-                return;
-            }
-            
-            UserController.enviarMensaje(chatmsg.getText(), getConversacionFromId(ID));
-            chatPanel.addMessage(chatmsg.getText(), true, chatScrollPane);
-            chatmsg.setText("");
-        });
+        // al pulsar el boton enviar se envia el mensaje
+        sendButton.addActionListener(new EventSendMessage(chatmsg, this, ID, chatScrollPane));
+        // al pulsar enter en el chatmsg se envia el mensaje
+        chatmsg.addActionListener(new EventSendMessage(chatmsg, this, ID, chatScrollPane));
 
         // TODO: ponerle un simbolo de menú
         // JButton menú usuario
@@ -150,5 +154,14 @@ public class RightPanel extends JPanel {
         // Actualiza el ChatPanel para mostrar los nuevos mensajes
         chatPanel.revalidate();
         chatPanel.repaint();
+    }
+
+    /**
+     * Añade un mensaje al ChatPanel.
+     * @param message el mensaje a añadir.
+     * @param isUserMessage true si el mensaje fue enviado por el usuario actual, false en caso contrario.
+     */
+    public void addMessage(String message, boolean isUserMessage) {
+        chatPanel.addMessage(message, isUserMessage, chatScrollPane);
     }
 }

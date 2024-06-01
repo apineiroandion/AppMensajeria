@@ -2,6 +2,7 @@ package view.panels;
 
 import view.MainWindow;
 import view.resources.Label;
+import view.resources.events.EventSwitchConversation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -32,35 +33,8 @@ public class ConversationPanel extends JPanel {
         this.add(lbl, BorderLayout.WEST);
 
         // Añadir MouseListener
-        this.addMouseListener(new MouseAdapter() {
-            // Cambiar color y cambiar chats al hacer clic
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Se ha hecho clic en el panel de conversación de " + usuario + "con ID: " + ID);
-                setBackground(new Color(40,40,40));
-                parentPanel.changeColorOthers(ConversationPanel.this); // Deseleccionar otros ConversationPanel
-
-                // Create a new RightPanel
-                RightPanel rightPanel = new RightPanel(usuario, ID);
-
-                // Get the MainWindow instance
-                MainWindow mainWindow = (MainWindow) SwingUtilities.getWindowAncestor(ConversationPanel.this);
-
-                // Remove the old RightPanel
-                Component[] components = mainWindow.getContentPane().getComponents();
-                for (Component component : components) {
-                    if (component instanceof RightPanel) {
-                        mainWindow.getContentPane().remove(component);
-                    }
-                }
-
-                // Add the new RightPanel to the MainWindow
-                mainWindow.getContentPane().add(rightPanel, BorderLayout.CENTER);
-
-                // Refresh the MainWindow
-                mainWindow.getContentPane().validate();
-                mainWindow.getContentPane().repaint();
-            }
-        });
+        this.addMouseListener(new EventSwitchConversation(usuario, ID, this, parentPanel));
     }
+
+
 }

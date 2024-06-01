@@ -3,13 +3,11 @@ package view;
 import controller.UserController;
 import model.Conversacion;
 import model.User;
-import model.dao.ConversacionDAO;
 import view.panels.*;
 import view.resources.*;
 import view.resources.Label;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -58,6 +56,7 @@ public class MainWindow extends JFrame {
 
         setSize(800, 600);
         setTitle("Chats");
+        setUndecorated(true);
         getContentPane().setBackground(new java.awt.Color(45, 45, 45));
         setMinimumSize(new Dimension(800, 600));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -150,11 +149,16 @@ public class MainWindow extends JFrame {
 /*        rightPanel = new RightPanel("defaultUser", 1);
         add(rightPanel, BorderLayout.CENTER);*/
 
-
-
         // JPanel que contiene los ConversationPanel
         conversationListPanel = new ConversationListPanel();
 
+        /**
+         * topPanel BorderLayout
+         * Panel superior
+         * Botones cerrar y minimizar
+         */
+        TopPanel topPanel = new TopPanel();
+        this.add(topPanel, BorderLayout.NORTH);
 
     }
     /**
