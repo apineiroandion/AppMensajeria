@@ -13,5 +13,8 @@ public class ChatScrollPane extends JScrollPane {
         setBackground(new Color(45,45,45));
         getViewport().setBackground(new Color(45,45,45));   // Color fondo
         setBorder(createEmptyBorder()); // Eliminar borde
+
+        // Aplicar la UI personalizada al scrollbar
+        getVerticalScrollBar().setUI(new ScrollBarUI());
     }
 }
