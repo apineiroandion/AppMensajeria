@@ -25,6 +25,7 @@ public class UserController {
     public static Conversacion conversacionAbierta;
 
     private static LoginWindow loginWindow;
+    private static MainWindow mainWindow;
 
 
     public static void iniciarApp(){
@@ -72,7 +73,7 @@ public class UserController {
      * Abre una nueva ventana de aplicacion.
      */
     public static void openMainWindow(){
-        MainWindow mainWindow = new MainWindow();
+        mainWindow = new MainWindow();
         mainWindow.setVisible(true);
         loginWindow.dispose();
     }
@@ -237,4 +238,10 @@ public class UserController {
         conversacionAbierta = getConversacionFromId(id);
     }
 
+    /**
+     * Metodo que devuelve la MainWindow
+     */
+    public static MainWindow getMainWindow() {
+        return mainWindow;
+    }
 }

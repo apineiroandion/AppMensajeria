@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
         conversationListPanel.addConversation("conversacion 2");
         conversationListPanel.addConversation("conversacion 3");*/
 
-        addConversationPanel();
+        loadConversations();
 
 
         setSize(800, 600);
@@ -64,7 +64,10 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    public void addConversationPanel() {
+    /**
+     * Añadir las conversaciones al panel de conversaciones
+     */
+    public void loadConversations() {
         // Obtener las conversaciones del usuario logeado
         ArrayList<Conversacion> conversaciones = UserController.getConversacionesUsuarioLogeado(UserController.usuarioLogeado);
         System.out.println("Conversaciones: " + conversaciones);
@@ -80,6 +83,9 @@ public class MainWindow extends JFrame {
 
         // Imprimir los participantes de la primera conversación para depuración
         System.out.println(conversaciones.get(0).getParticipantes());
+
+        //limpiar conversaciones
+        conversationListPanel.removeAll();
 
         // Iterar sobre las conversaciones
         for (Conversacion conversacion : conversaciones) {
@@ -112,6 +118,11 @@ public class MainWindow extends JFrame {
         conversationListPanel.repaint();
     }
 
+    /**
+     * Obtener el nombre de la conversación
+     * @param users Lista de usuarios
+     * @return Nombre de la conversación
+     */
     public String getConversationName(ArrayList<User> users) {
         for (User user : users) {
             if (!user.getUserName().equals(UserController.usuarioLogeado.getUserName())) {
