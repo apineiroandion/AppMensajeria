@@ -29,7 +29,7 @@ public class MessageUpdater extends Thread{
                     break;
                 }
                 System.out.println("rula");
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

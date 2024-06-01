@@ -22,12 +22,12 @@ public class VerificarMensajesThread extends Thread{
             try {
                 if (ConversacionDAO.hayMensajesNoLeidos(UserController.usuarioLogeado.getUserName())) {
                     ArrayList<Integer> conversacionesConMensajesNoLeidos = MensajeDAO.getConversacionesConMensajesSinLeer(UserController.usuarioLogeado.getUserName());
+                    UpdateMensajesThread.updateMensajesIsRunning(true);
                     for (Integer conversacionId : conversacionesConMensajesNoLeidos) {
                         if(sustituirConversacionesUsuarioLogeado()){
                             //updateIsRunningTrue();
                             MessageUpdater.updateIsRunning(true);
                             enviarNotificacion(conversacionId);
-                            UpdateMensajesThread.updateMensajesIsRunning(true);
                         }
                     }
                 }
