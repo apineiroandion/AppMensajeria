@@ -10,10 +10,12 @@ import view.resources.ChatScrollPane;
 import view.resources.GenericButton;
 import view.resources.GenericTextField;
 import view.resources.Label;
+import view.resources.events.EventSendMessage;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -100,16 +102,10 @@ public class RightPanel extends JPanel {
         gbcrightBottomPanel.weighty = 1;
         gbcrightBottomPanel.fill = GridBagConstraints.BOTH;
         bottomRightPanel.add(sendButton,gbcrightBottomPanel);
-        sendButton.addActionListener(e -> {
-            // no permitir mensajes vacios o con espacios
-            if(chatmsg.getText().trim().isEmpty()){
-                return;
-            }
-            
-            UserController.enviarMensaje(chatmsg.getText(), getConversacionFromId(ID));
-            chatPanel.addMessage(chatmsg.getText(), true, chatScrollPane);
-            chatmsg.setText("");
-        });
+        // al pulsar el boton enviar se envia el mensaje
+        sendButton.addActionListener(new EventSendMessage(chatmsg, this, ID, chatScrollPane));
+        // al pulsar enter en el chatmsg se envia el mensaje
+        chatmsg.addActionListener(new EventSendMessage(chatmsg, this, ID, chatScrollPane));
 
         // TODO: ponerle un simbolo de menú
         // JButton menú usuario
