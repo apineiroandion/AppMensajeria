@@ -26,7 +26,6 @@ public class MessageUpdater extends Thread{
                     rightPanel.validate();
                     rightPanel.repaint();
                     updateIsRunning(false);
-                    break;
                 }
                 System.out.println("rula");
                 Thread.sleep(1000);
