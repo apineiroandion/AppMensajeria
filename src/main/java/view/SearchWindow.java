@@ -227,7 +227,10 @@ public class SearchWindow extends JFrame {
             }
             if(comprobador!=0){
                 UserController.crearConversacion(getFirstMessage(), users.get(index));
+                // obtener MainWindow abierta
+                MainWindow mainWindow = UserController.getMainWindow();
                 System.out.println("Mensaje enviado: ");
+                mainWindow.loadConversations();
                 dispose();
             }else {
                 System.out.println("No se ha seleccionado un usuario");
